@@ -1,6 +1,17 @@
 const jwt = require('jsonwebtoken');
 
-// Générer un token
+// Fonction pour générer un token
 function generateToken(payload) {
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }); // Expire dans 1 heure
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
+
+// Fonction pour vérifier un token
+function verifyToken(token) {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    throw new Error('Invalid token');
+  }
+}
+
+module.exports = { generateToken, verifyToken };

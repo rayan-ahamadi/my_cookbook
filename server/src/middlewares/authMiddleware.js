@@ -1,18 +1,23 @@
-// Vérifier un token
-function verifyToken(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1]; // Récupérer le token depuis le header
+// Helper permettant de vérifier la validité du token JWT avec la méthode verifyToken
+const jwtHelper = require('../helpers/jwtHelper');
 
+function verifyToken(req, res, next) {
+  // Récupérer le token depuis les headers de la requête (Authorization)
+  const token = req.headers.authorization?.split(' ')[1]; // Format: "Bearer <token>"
+  
   if (!token) {
-    return res.status(401).json({ message: 'Token manquant ou invalide' });
+    return res.status(401).json({ message: 'Token required' });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Ajouter les données décodées à la requête
-    next();
+    // Vérifie la validité du token
+    const decoded = jwtHelper.verifyToken(token); 
+    req.user = decoded;  // Ajoute les informations de l'utilisateur à la requête
+    next();  
   } catch (error) {
-    return res.status(403).json({ message: 'Accès interdit : Token invalide' });
+    return res.status(403).json({ message: 'Invalid token' });
   }
 }
 
-module.exports = { generateToken, verifyToken };
+module.exports = verifyToken;
+

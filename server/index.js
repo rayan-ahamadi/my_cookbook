@@ -10,17 +10,20 @@ const app = express();
 app.use(express.json());
 
 // Connexion à MongoDB
-let db;
-connectToDatabase().then(database => {
-  db = database;
-});
+connectToDatabase();
 
 // Routes
+
+// Pour le test
 app.get('/', (req, res) => {
   res.send('API is running');
 })
+// Sans Authentification, exemple : inscription, connexion, visualiser les recettes sans comptes
 app.use('/user', require('./src/entities/user/user.routes'));
 app.use('/recipe', verifyToken, require('./src/entities/recipe/recipe.routes'));
+// Avec Authentification, exemple : ajouter une recette, modifier une recette, supprimer une recette
+app.use('/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
+app.use('/protected/user', verifyToken, require('./src/entities/user/user.protected.routes'));
 
 // Guard routes
 app.use((req, res, next) => {

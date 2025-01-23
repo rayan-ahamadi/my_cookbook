@@ -16,7 +16,14 @@ export const register = async (req,res,next) => {
 
     user.password = await hashPassword(user.password); // Hash du mot de passe
     await user.save();
+
+    // Envoie du token en cookie
     const token = generateToken({ id: user._id });
+    res.cookie('jwt', token, {
+       httpOnly: true, 
+       sameSite: 'none', 
+       secure: false });
+       
     res.status(201).send(user, token);
   } catch (error) {
     next(error);
@@ -38,7 +45,13 @@ export const login = async (req,res,next) => {
       return res.status(400).send({ message: 'Mot de passe invalide' });
     }
 
+    // Envoie du token en cookie
     const token = generateToken({ id: user._id });
+    res.cookie('jwt', token, {
+      httpOnly: true, 
+      sameSite: 'none', 
+      secure: false });
+
     res.status(200).send({ user, token });
   }
   catch (error) {

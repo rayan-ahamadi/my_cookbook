@@ -3,7 +3,7 @@ const jwtHelper = require('../helpers/jwtHelper');
 
 function verifyToken(req, res, next) {
   // Récupérer le token depuis les headers de la requête (Authorization)
-  const token = req.headers.authorization?.split(' ')[1]; // Format: "Bearer <token>"
+  const token = req.cookies.jwt || req.headers.authorization;
   
   if (!token) {
     return res.status(401).json({ message: 'Token required' });

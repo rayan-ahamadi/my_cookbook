@@ -3,27 +3,37 @@ const dotenv = require('dotenv');
 const connectToDatabase = require('./src/configs/dbConfig');
 const { upload, processImage } = require('./src/configs/multerConfig');
 const { verifyToken } = require('./src/middlewares/authMiddleware');
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
 
 dotenv.config(); // Charger les variables d'environnement
 
 const app = express();
+
+// Configuration
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
+const port = process.env.SERVER_PORT || 5000;
 
 // Connexion à MongoDB
 connectToDatabase();
 
 // Routes
-
 // Pour le test
 app.get('/', (req, res) => {
   res.send('API is running');
 })
 // Sans Authentification, exemple : inscription, connexion, visualiser les recettes sans comptes
-app.use('/user', require('./src/entities/user/user.routes'));
-app.use('/recipe', verifyToken, require('./src/entities/recipe/recipe.routes'));
+app.use('api/user', require('./src/entities/user/user.routes'));
+app.use('api/recipe', verifyToken, require('./src/entities/recipe/recipe.routes'));
 // Avec Authentification, exemple : ajouter une recette, modifier une recette, supprimer une recette
-app.use('/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
-app.use('/protected/user', verifyToken, require('./src/entities/user/user.protected.routes'));
+app.use('api/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
+app.use('api/protected/user', verifyToken, require('./src/entities/user/user.protected.routes'));
 
 // Guard routes
 app.use((req, res, next) => {

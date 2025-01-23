@@ -19,12 +19,12 @@ const recipeSchema = new mongoose.Schema({
   },
   season: {
     type: String,
-    enum: ['spring', 'summer', 'autumn', 'winter'],
+    enum: ['printemps', 'été', 'automne', 'hiver'],
     required: true,
   },
   difficulty: {
     type: String,
-    enum: ['easy', 'medium', 'hard'],
+    enum: ['facile', 'moyen', 'difficile'],
     required: true,
   },
   duration: {

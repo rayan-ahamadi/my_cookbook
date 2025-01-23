@@ -1,8 +1,10 @@
-const { generateToken } = require("../../helpers/jwtHelper");
+const { generateToken, decodeToken } = require("../../helpers/jwtHelper");
 const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper");
 const User = require("./user.model");
 
-export const register = async (req,res,next) => {
+// Pour les routes non protégées
+
+const register = async (req,res,next) => {
   try {
     const user = new User(req.body);
 
@@ -18,19 +20,19 @@ export const register = async (req,res,next) => {
     await user.save();
 
     // Envoie du token en cookie
-    const token = generateToken({ id: user._id });
+    const token = generateToken({ id: user._id, role: user.role });
     res.cookie('jwt', token, {
        httpOnly: true, 
        sameSite: 'none', 
        secure: false });
-       
-    res.status(201).send(user, token);
+
+    res.status(201).send({ user, token });
   } catch (error) {
     next(error);
   }
 };
 
-export const login = async (req,res,next) => {
+const login = async (req,res,next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
@@ -46,7 +48,7 @@ export const login = async (req,res,next) => {
     }
 
     // Envoie du token en cookie
-    const token = generateToken({ id: user._id });
+    const token = generateToken({ id: user._id, role: user.role });
     res.cookie('jwt', token, {
       httpOnly: true, 
       sameSite: 'none', 
@@ -58,3 +60,88 @@ export const login = async (req,res,next) => {
     next(error);
   }
 }
+
+// Pour les routes protégées
+
+const checkRole = async (req,res,next) => {
+  // Si l'utilisateur AYANT FAIT LA REQUËTE n'est pas un admin, il n'aura pas droit à certains accès
+  try {
+    const decodedToken = decodeToken(req.cookies.jwt);
+    const user = await User.findById(decodedToken.id);
+    return user.role
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+const getUser = async (req,res,next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.status(200).send({user});
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+const getAllUsers = async (req,res,next) => {
+  try {
+    const role = await checkRole(req,res,next);
+    console.log(role);
+    if (role !== 'admin') {
+      res.status(403).send({ message: 'Forbidden' });
+      return;
+    }
+
+    const users = await User.find();
+    res.status(200).send({users});
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+const updateUser = async (req,res,next) => {
+  try {
+     /* L'utilisateur AYANT FAIT LA REQUËTE ne peut modifier que son propre profil,
+     sauf si il est admin */
+    const decodedToken = decodeToken(req.cookies.jwt);
+    if (decodedToken.id !== req.user.id && decodedToken.role !== 'admin') {
+      res.status(403).send({ message: 'Forbidden' });
+      return;
+    }
+
+    const user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true });
+    res.status(200).send({user});
+  }
+  catch(error) {
+    next(error);
+  }
+}
+
+const deleteUser = async (req,res,next) => {
+  try {
+    /* L'utilisateur AYANT FAIT LA REQUËTE ne peut modifier que son propre profil,
+    sauf si il est admin */
+    const decodedToken = decodeToken(req.cookies.jwt);
+    if (decodedToken.id !== req.user.id && decodedToken.role !== 'admin') {
+      res.status(403).send({ message: 'Forbidden' });
+      return;
+    }
+    const user = await User.findByIdAndDelete(req.user.id);
+    res.status(200).send({user});
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+module.exports = {
+  register,
+  login,
+  getUser,
+  getAllUsers,
+  updateUser,
+  deleteUser
+};

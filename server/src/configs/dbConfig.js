@@ -3,9 +3,7 @@ require('dotenv').config(); // Charger les variables d'environnement
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(process.env.DATABASE_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.DB_URL, {
       dbName: process.env.DB_NAME,
     });
     console.log('Connexion à MongoDB réussie avec Mongoose');

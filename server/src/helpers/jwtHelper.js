@@ -14,4 +14,9 @@ function verifyToken(token) {
   }
 }
 
-module.exports = { generateToken, verifyToken };
+// Fonction pour décoder un token
+function decodeToken(token) {
+  return jwt.decode(token);
+}
+
+module.exports = { generateToken, verifyToken, decodeToken };

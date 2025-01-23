@@ -29,11 +29,11 @@ app.get('/', (req, res) => {
   res.send('API is running');
 })
 // Sans Authentification, exemple : inscription, connexion, visualiser les recettes sans comptes
-app.use('api/user', require('./src/entities/user/user.routes'));
-app.use('api/recipe', verifyToken, require('./src/entities/recipe/recipe.routes'));
+app.use('/api/user', require('./src/entities/user/user.routes.js'));
+//// app.use('api/recipe', verifyToken, require('./src/entities/recipe/recipe.routes'));
 // Avec Authentification, exemple : ajouter une recette, modifier une recette, supprimer une recette
-app.use('api/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
-app.use('api/protected/user', verifyToken, require('./src/entities/user/user.protected.routes'));
+//// app.use('api/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
+app.use('/api/protected/user', verifyToken, require('./src/entities/user/user.protected.routes.js'));
 
 // Guard routes
 app.use((req, res, next) => {

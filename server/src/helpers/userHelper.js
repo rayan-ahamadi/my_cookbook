@@ -1,38 +1,26 @@
-const { decodeToken } = require("../../helpers/jwtHelper");
-const User = require("../user/user.model");
+const { decodeToken } = require("./jwtHelper");
+const User = require("../entities/user/user.model");
+const Recipe = require("../entities/recipe/recipe.model");
 
-const isAuthor = async (req, res, next) => {
-  // Vérifier si l'utilisateur est un auteur ou admin
-  try {
-    const { user } = decodeToken(req.cookies.jwt);
-    const author = await User.findById(user.id);
-    if (author.role === 'admin' || author.role === 'author'){
-      next();
-    } else {
-      const error = new Error('Unauthorized');
-      error.status = 401;
-      throw error;
-    }
-  } catch (error) {
-    next(error);
-  }
-}
 
 const checkAuthor = async (req, res, next) => {
   // Vérifier si l'utilisateur est l'auteur de la recette ou un admin
   try {
-    await isAuthor(req, res, next);
+    const author = await checkRole(req,res,next);
+    if (author === 'admin') {
+      return true;
+    }
     const { id } = req.params;
-    const { user } = decodeToken(req.cookies.jwt);
+    const user = decodeToken(req.cookies.jwt);
     const recipe = await Recipe.findById(id) || req.body;
     if (recipe.author.toString() !== user.id) {
       const error = new Error('Unauthorized');
       error.status = 401;
       throw error;
     }
-    next();
+    return true;
   } catch (error) {
-    next(error);
+     return res.status(error.status).send({ message: error.message });
   }
 }
 
@@ -45,8 +33,8 @@ const checkRole = async (req,res,next) => {
     return user.role
   }
   catch (error) {
-    next(error);
+    return res.status(401).send({ error });
   }
 }
 
-module.exports = { checkAuthor, isAuthor, checkRole };
+module.exports = { checkAuthor, checkRole };

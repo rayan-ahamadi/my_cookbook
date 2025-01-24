@@ -8,7 +8,7 @@ const {
   deleteUser,
 } = require('./user.controller');
 
-router.get('/', getUser);
+router.get('/:id', getUser);
 router.get('/all', getAllUsers);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);

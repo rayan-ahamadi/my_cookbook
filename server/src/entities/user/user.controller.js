@@ -68,7 +68,7 @@ const login = async (req,res,next) => {
 
 const getUser = async (req,res,next) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.params.id);
     res.status(200).send({user});
   }
   catch (error) {

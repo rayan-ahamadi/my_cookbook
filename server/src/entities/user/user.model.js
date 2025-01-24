@@ -34,6 +34,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'default.jpg',
   },
+  favorites: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Recipes',
+    default: [],
+  },
+  comments : {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Comments',
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

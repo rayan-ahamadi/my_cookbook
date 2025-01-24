@@ -5,10 +5,14 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ingredients: {
-    type: [String],
-    required: true,
-  },
+  ingredients: [
+    {
+      name: { type: String, required: true }, 
+      quantity: { type: Number, required: true }, 
+      unit: { type: String, required: true }, 
+      notes: { type: String }, 
+    },
+  ],
   instructions: {
     type: [String],
     required: true,
@@ -38,6 +42,11 @@ const recipeSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+  },
+  comments : {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Comments',
+    default: [],
   },
 });
 

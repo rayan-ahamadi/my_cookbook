@@ -1,5 +1,6 @@
 const { generateToken, decodeToken } = require("../../helpers/jwtHelper");
 const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper");
+const { checkRole } = require("../../helpers/userHelper");
 const User = require("./user.model");
 
 // Pour les routes non protégées
@@ -63,17 +64,7 @@ const login = async (req,res,next) => {
 
 // Pour les routes protégées
 
-const checkRole = async (req,res,next) => {
-  // Si l'utilisateur AYANT FAIT LA REQUËTE n'est pas un admin, il n'aura pas droit à certains accès
-  try {
-    const decodedToken = decodeToken(req.cookies.jwt);
-    const user = await User.findById(decodedToken.id);
-    return user.role
-  }
-  catch (error) {
-    next(error);
-  }
-}
+
 
 const getUser = async (req,res,next) => {
   try {

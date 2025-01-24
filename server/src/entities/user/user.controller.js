@@ -112,7 +112,7 @@ const updateUser = async (req,res,next) => {
       return;
     }
 
-    const user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true });
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).send({user});
   }
   catch(error) {
@@ -129,7 +129,7 @@ const deleteUser = async (req,res,next) => {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }
-    const user = await User.findByIdAndDelete(req.user.id);
+    const user = await User.findByIdAndDelete(req.params.id);
     res.status(200).send({user});
   }
   catch (error) {

@@ -107,7 +107,7 @@ const updateUser = async (req,res,next) => {
      /* L'utilisateur AYANT FAIT LA REQUËTE ne peut modifier que son propre profil,
      sauf si il est admin */
     const decodedToken = decodeToken(req.cookies.jwt);
-    if (decodedToken.id !== req.user.id && decodedToken.role !== 'admin') {
+    if (decodedToken.id !== req.params.id && decodedToken.role !== 'admin') {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }
@@ -125,7 +125,7 @@ const deleteUser = async (req,res,next) => {
     /* L'utilisateur AYANT FAIT LA REQUËTE ne peut modifier que son propre profil,
     sauf si il est admin */
     const decodedToken = decodeToken(req.cookies.jwt);
-    if (decodedToken.id !== req.user.id && decodedToken.role !== 'admin') {
+    if (decodedToken.id !== req.params.id && decodedToken.role !== 'admin') {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }

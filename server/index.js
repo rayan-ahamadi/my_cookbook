@@ -34,6 +34,7 @@ app.use('/api/recipe', require('./src/entities/recipe/recipe.routes'));
 // Avec Authentification, exemple : ajouter une recette, modifier une recette, supprimer une recette
 app.use('/api/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
 app.use('/api/protected/user', verifyToken, require('./src/entities/user/user.protected.routes.js'));
+app.use('/api/protected/comment', verifyToken, require('./src/entities/comment/comment.protected.routes'));
 
 // Guard routes
 app.use((req, res, next) => {

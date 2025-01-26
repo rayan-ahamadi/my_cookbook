@@ -1,4 +1,4 @@
-const {decodeToken} = require('../../auth/auth.services');
+const {decodeToken} = require('../../helpers/jwtHelper');
 const {checkRole} = require('../../helpers/userHelper');
 const Comment = require('./comment.model');
 const Recipe = require('../recipe/recipe.model');
@@ -6,7 +6,7 @@ const Recipe = require('../recipe/recipe.model');
 
 const getAllComment = async (req, res,next) => {
   try {
-    if (checkRole(req,res,next) !== 'admin') {
+    if (await checkRole(req,res,next) !== 'admin') {
       return res.status(401).send({ message: 'Unauthorized' });
     }
     const comments = await Comment.find();
@@ -25,6 +25,17 @@ const getComment = async (req, res,next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const getCommentByRecipe = async (req, res,next) => {
+  try {
+    const recipe = await Recipe.findById(req.params.recipeId)
+    const commentsId = recipe.comments;
+    const comments = await Comment.find({ _id: { $in: commentsId } });
+    res.status(201).json({comments});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 const postComment =  async (req, res,next) => {
   try {
@@ -56,6 +67,7 @@ const updateComment = async (req, res,next) => {
 
 const deleteComment = async (req, res,next) => {
   try {
+    await Recipe.updateMany({comments: req.params.id}, { $pull: { comments: req.params.id } });
     await Comment.findByIdAndDelete(req.params.id);
     res.status(204).json({message: 'Comment deleted'});
   } catch (error) {
@@ -68,5 +80,6 @@ module.exports = {
   getComment, 
   postComment, 
   updateComment, 
-  deleteComment 
+  deleteComment,
+  getCommentByRecipe
 };

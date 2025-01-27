@@ -12,6 +12,28 @@ const getRecipes = async (req, res, next) => {
   }
 };
 
+const getRecipesWithLimit = async (req,res,next) => {
+  try {
+    const { limit } = req.params;
+    const recipes = await Recipe.find().limit(parseInt(limit));
+    res.status(200).send({recipes});
+  }
+  catch {
+    next(error);
+  }
+}
+
+const getRecipesPaginate = async (req,res,next) => {
+  try {
+    const { page } = req.params;
+    const recipes = await Recipe.find().skip(parseInt(page) * 10).limit(10);
+    res.status(200).send({recipes});
+  }
+  catch {
+    next(error);
+  }
+}
+
 const getRecipe = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -65,6 +87,8 @@ const deleteRecipe = async (req, res, next) => {
 module.exports = {
   getRecipes,
   getRecipe,
+  getRecipesWithLimit,
+  getRecipesPaginate,
   addRecipe,
   updateRecipe,
   deleteRecipe,

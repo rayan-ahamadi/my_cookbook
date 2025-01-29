@@ -1,4 +1,4 @@
-const { generateToken, decodeToken } = require("../../helpers/jwtHelper");
+const { generateToken, generateRefreshToken ,decodeToken } = require("../../helpers/jwtHelper");
 const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper");
 const { checkRole } = require("../../helpers/userHelper");
 const User = require("./user.model");
@@ -22,10 +22,16 @@ const register = async (req,res,next) => {
 
     // Envoie du token en cookie
     const token = generateToken({ id: user._id, role: user.role });
+    const refreshToken = generateRefreshToken({ id: user._id, role: user.role });
     res.cookie('jwt', token, {
        httpOnly: true, 
        sameSite: 'none', 
        secure: false });
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true, 
+        sameSite: 'none', 
+        secure: false });
+  
 
     res.status(201).send({ user, token });
   } catch (error) {
@@ -50,10 +56,16 @@ const login = async (req,res,next) => {
 
     // Envoie du token en cookie
     const token = generateToken({ id: user._id, role: user.role });
+    const refreshToken = generateRefreshToken({ id: user._id, role: user.role });
     res.cookie('jwt', token, {
       httpOnly: true, 
       sameSite: 'none', 
       secure: false });
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true, 
+      sameSite: 'none', 
+      secure: false });
+
 
     res.status(200).send({ user, token });
   }

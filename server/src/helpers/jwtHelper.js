@@ -5,6 +5,36 @@ function generateToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
+function generateRefreshToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
+}
+
+// Fonction pour les demandes de rafraîchissement de token venant du client
+function refreshToken(){
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.status(401).json({ message: 'Refresh Token required' });
+  }
+
+  try {
+    const decoded = jwtHelper.verifyToken(refreshToken);
+    const newToken = jwtHelper.generateToken({ id: decoded.id, role: decoded.role });
+    const newRefreshToken = jwtHelper.generateRefreshToken({ id: decoded.id, role: decoded.role });
+    res.cookie('jwt', newToken, {
+      httpOnly: true, 
+      sameSite: 'none', 
+      secure: false });
+    res.cookie('refreshToken', newRefreshToken, {
+      httpOnly: true, 
+      sameSite: 'none', 
+      secure: false }); 
+    return next();
+  } catch (error) {
+    return res.status(403).json({ message: 'Invalid token' });
+  }
+
+}
+
 // Fonction pour vérifier un token
 function verifyToken(token) {
   try {
@@ -19,4 +49,4 @@ function decodeToken(token) {
   return jwt.decode(token);
 }
 
-module.exports = { generateToken, verifyToken, decodeToken };
+module.exports = { generateToken,generateRefreshToken, refreshToken, verifyToken, decodeToken };

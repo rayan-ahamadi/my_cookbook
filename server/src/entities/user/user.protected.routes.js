@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { uploadAvatar } = require('../../middlewares/multerConfig');
+const { uploadAvatar, processAvatar } = require('../../middlewares/multerSharpConfig');
 
 const {
   getUser,
@@ -11,7 +11,7 @@ const {
 
 router.get('/:id', getUser);
 router.get('/all', getAllUsers);
-router.put('/:id', uploadAvatar.single("userAvatar") , updateUser);
+router.put('/:id', uploadAvatar.single("userAvatar"), processAvatar, updateUser);
 router.delete('/:id', deleteUser);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const Express = require('express');
 const Router = Express.Router();
-const { uploadRecipeImage, processRecipeImage } = require('../../middlewares/multerSharpConfig');
+const { uploadImage, processImage } = require('../../middlewares/multerSharpConfig');
 
 const { 
   addRecipe, 
@@ -8,8 +8,8 @@ const {
   deleteRecipe,
  } = require('./recipe.controller');
 
-Router.post('/', uploadRecipeImage.single("recipeImage"), processRecipeImage ,addRecipe);
-Router.put('/:id', uploadRecipeImage.single("recipeImage"), processRecipeImage ,updateRecipe);
+Router.post('/', uploadImage.single("recipeImage"), processImage(800,"recipe") ,addRecipe);
+Router.put('/:id', uploadImage.single("recipeImage"), processImage(800,"recipe") ,updateRecipe);
 Router.delete('/:id', deleteRecipe);
 
 module.exports = Router;

@@ -1,6 +1,7 @@
 const { generateToken, generateRefreshToken ,decodeToken } = require("../../helpers/jwtHelper");
 const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper");
 const { checkRole } = require("../../helpers/userHelper");
+const { deleteAvatar } = require("../../helpers/imageHelpers");
 const User = require("./user.model");
 
 // Pour les routes non protégées
@@ -114,6 +115,13 @@ const updateUser = async (req,res,next) => {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }
+    // Supprimer et modifier l'image de l'utilisateur
+    deleteAvatar(req.params.id);
+    if(req.file){
+      req.body.avatar = "avatar/" + req.file.filename;
+    } else {
+      req.body.avatar = 'avatar/default.jpg';
+    }
 
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).send({user});
@@ -132,6 +140,9 @@ const deleteUser = async (req,res,next) => {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }
+    // Supprimer l'image de l'utilisateur
+    deleteAvatar(req.params.id);
+
     const user = await User.findByIdAndDelete(req.params.id);
     res.status(200).send({user});
   }

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { uploadAvatar } = require('../../middlewares/multerConfig');
 
 const {
   getUser,
@@ -10,7 +11,7 @@ const {
 
 router.get('/:id', getUser);
 router.get('/all', getAllUsers);
-router.put('/:id', updateUser);
+router.put('/:id', uploadAvatar.single("userAvatar") , updateUser);
 router.delete('/:id', deleteUser);
 
 module.exports = router;

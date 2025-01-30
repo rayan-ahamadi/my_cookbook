@@ -1,5 +1,6 @@
 const Recipe = require("../recipe/recipe.model");
 const { checkAuthor } = require("../../helpers/userHelper");
+const { deleteRecipeImage } = require("../../helpers/imageHelpers");
 
 // Pour les routes non protégées (Consultation des recettes sans compte)
 
@@ -52,6 +53,14 @@ const addRecipe = async (req, res, next) => {
     // l'admin peut ajout une recette pour n'importe qui mais un auteur ne peut ajouter une recette que pour lui
     await checkAuthor(req, res, next);
     const recipe = new Recipe(req.body);
+
+    if(req.file){
+      recipe.image = "recipe/" + req.file.filename;
+    } else {
+      recipe.image = 'recipe/default.jpg';
+    }
+
+
     await recipe.save();
     res.status(201).send({recipe});
   } catch (error) {
@@ -64,6 +73,13 @@ const updateRecipe = async (req, res, next) => {
     // l'admin peut modifier une recette pour n'importe qui mais un auteur ne peut modifier une recette que pour lui
     await checkAuthor(req, res, next);
     const { id } = req.params;
+    // Supprimer et Modifier l'image de la recette
+    deleteRecipeImage(id);
+    if(req.file){
+      req.body.image = "recipe/" + req.file.filename;
+    } else {
+      req.body.image = 'recipe/default.jpg';
+    }
     const recipe = await Recipe.findByIdAndUpdate(id, req.body, { new: true });
     res.status(200).send({recipe});
   }
@@ -77,6 +93,9 @@ const deleteRecipe = async (req, res, next) => {
     // l'admin peut supprimer une recette pour n'importe qui mais un auteur ne peut supprimer une recette que pour lui
     await checkAuthor(req, res, next);
     const { id } = req.params;
+    // Supprimer l'image de la recette
+    deleteRecipeImage(id);
+
     await Recipe.findByIdAndDelete(id);
     res.status(204).send({message: 'Recipe deleted'});
   } catch (error) {

@@ -6,12 +6,14 @@ const {
   addRecipe, 
   updateRecipe, 
   deleteRecipe,
-  getFavoriteRecipes
+  getFavoriteRecipes,
+  searchRecipes
  } = require('./recipe.controller');
 
 Router.post('/', uploadImage.single("recipeImage"), processImage(800,"recipe") ,addRecipe);
 Router.put('/:id', uploadImage.single("recipeImage"), processImage(800,"recipe") ,updateRecipe);
 Router.delete('/:id', deleteRecipe);
+Router.get('/search/:search', searchRecipes);
 Router.get("/fav/:userId", getFavoriteRecipes)
 
 

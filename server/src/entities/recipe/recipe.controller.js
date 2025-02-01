@@ -1,7 +1,8 @@
 const Recipe = require("../recipe/recipe.model");
+const User = require("../user/user.model")
 const { checkAuthor } = require("../../helpers/userHelper");
 const { deleteRecipeImage } = require("../../helpers/imageHelpers");
-const User = require("../user/user.model")
+
 
 // Pour les routes non protégées (Consultation des recettes sans compte)
 
@@ -20,7 +21,7 @@ const getRecipesWithLimit = async (req,res,next) => {
     const recipes = await Recipe.find().limit(parseInt(limit));
     res.status(200).send({recipes});
   }
-  catch {
+  catch (error) {
     next(error);
   }
 }
@@ -31,7 +32,23 @@ const getRecipesPaginate = async (req,res,next) => {
     const recipes = await Recipe.find().skip(parseInt(page) * 10).limit(10);
     res.status(200).send({recipes});
   }
-  catch {
+  catch (error) {
+    next(error);
+  }
+}
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+const searchRecipes = async (req,res,next) => {
+  try {
+    const search = escapeRegex(req.params.search);
+    const recipes = await Recipe.find({
+      $text: { $search: search }
+    });
+    res.status(200).send({ recipes });
+  } catch (error) {
     next(error);
   }
 }
@@ -126,5 +143,6 @@ module.exports = {
   addRecipe,
   updateRecipe,
   deleteRecipe,
-  getFavoriteRecipes
+  getFavoriteRecipes,
+  searchRecipes
 };

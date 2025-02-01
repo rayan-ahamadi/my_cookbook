@@ -11,12 +11,12 @@ const register = async (req,res,next) => {
   try {
     const user = new User(req.body);
 
-    // Vérification de l'unicité de l'email
-    const { email } = req.body;
-    const existing = await User.findOne({ email });
+    // Vérification de l'unicité de l'email et du username
+    const { email, username } = req.body;
+    const existing = await User.findOne({ email, username });
 
     if (existing) {
-      return res.status(400).send({ message: 'Email already exists' });
+      return res.status(400).send({ message: 'Email ou pseudo déjà existant' });
     }
 
     user.password = await hashPassword(user.password); // Hash du mot de passe
@@ -165,7 +165,7 @@ const addToFavorites = async (req,res,next) => {
       await user.save();
       await recipe.save();
     } else {
-      return res.status(400).send({ message: 'Recipe already in favorites' });
+      return res.status(400).send({ message: 'Recette déjà dans les favoris' });
     }
     res.status(200).send({user});
   }
@@ -187,7 +187,7 @@ const removeFromFavorites = async (req,res,next) => {
       await user.save();
       await recipe.save();
     } else {
-      return res.status(400).send({ message: 'Recipe already in favorites' });
+      return res.status(400).send({ message: 'Recette déjà dans les favoris' });
     }
     res.status(200).send({user});
   }

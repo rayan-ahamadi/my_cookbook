@@ -54,4 +54,6 @@ const recipeSchema = new mongoose.Schema({
   }
 });
 
+recipeSchema.index({ title: 'text', 'ingredients.name': 'text'});
+
 module.exports = mongoose.model('Recipe', recipeSchema);

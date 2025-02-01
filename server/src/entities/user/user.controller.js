@@ -9,6 +9,16 @@ const Recipe = require("../recipe/recipe.model");
 
 const register = async (req,res,next) => {
   try {
+
+    // si création d'un nouveau admin, vérifie si la requête est bien faite par un admin
+    if (req.body.role === 'admin') {
+      const role = await checkRole(req,res,next);
+      if (role !== 'admin') {
+        res.status(403).send({ message: 'Forbidden' });
+        return;
+      }
+    }
+
     const user = new User(req.body);
 
     // Vérification de l'unicité de l'email et du username
@@ -116,6 +126,16 @@ const updateUser = async (req,res,next) => {
       res.status(403).send({ message: 'Forbidden' });
       return;
     }
+
+    // si changement des privilèges d'un user, vérifie si la requête est bien faite par un admin
+    if (req.body.role === 'admin') {
+      const role = await checkRole(req,res,next);
+      if (role !== 'admin') {
+        res.status(403).send({ message: 'Forbidden' });
+        return;
+      }
+    }
+
     // Supprimer et modifier l'image de l'utilisateur
     deleteAvatar(req.params.id);
     if(req.file){
@@ -134,7 +154,7 @@ const updateUser = async (req,res,next) => {
 
 const deleteUser = async (req,res,next) => {
   try {
-    /* L'utilisateur AYANT FAIT LA REQUËTE ne peut modifier que son propre profil,
+    /* L'utilisateur AYANT FAIT LA REQUËTE ne peut supprimer que son propre profil,
     sauf si il est admin */
     const decodedToken = decodeToken(req.cookies.jwt);
     if (decodedToken.id !== req.params.id && decodedToken.role !== 'admin') {

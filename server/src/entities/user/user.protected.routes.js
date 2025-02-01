@@ -2,12 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { uploadImage, processImage } = require('../../middlewares/multerSharpConfig');
 
-/**
- * @swagger
- * tags:
- *   name: User (routes protégées)
- *   description: Gestion des utilisateurs
- */
+
 
 
 const {
@@ -24,7 +19,7 @@ const {
  * /users/{id}:
  *   get:
  *     summary: Récupérer les informations d'un utilisateur par ID
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: id
@@ -45,7 +40,7 @@ router.get('/:id', getUser);
  * /users/all:
  *   get:
  *     summary: Récupérer la liste de tous les utilisateurs
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     responses:
  *       200:
  *         description: Liste des utilisateurs récupérée avec succès
@@ -59,7 +54,7 @@ router.get('/all', getAllUsers);
  * /users/{id}:
  *   put:
  *     summary: Mettre à jour un utilisateur
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
@@ -73,20 +68,34 @@ router.get('/all', getAllUsers);
  *         name: userAvatar
  *         type: file
  *         description: Nouvel avatar de l'utilisateur (optionnel)
- *     requestBody:
+ *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "John"
+ *               surname:
+ *                 type: string
+ *                 example: "Doe"
  *               username:
  *                 type: string
- *                 example: "newUsername"
+ *                 example: "johndoe"
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "newemail@example.com"
+ *                 example: "johndoe@example.com"
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: "securepassword123"
+ *               role:
+ *                 type: string
+ *                 enum: ['user', 'author', 'admin']
+ *                 example: "user"
  *     responses:
  *       200:
  *         description: Utilisateur mis à jour avec succès
@@ -100,7 +109,7 @@ router.put('/:id', uploadImage.single("userAvatar"), processImage(200, "avatar")
  * /users/{id}:
  *   delete:
  *     summary: Supprimer un utilisateur
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: id
@@ -121,7 +130,7 @@ router.delete('/:id', deleteUser);
  * /users/fav/{recipeId}:
  *   post:
  *     summary: Ajouter une recette aux favoris de l'utilisateur connecté
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: recipeId
@@ -142,7 +151,7 @@ router.post('/fav/:recipeId', addToFavorites);
  * /users/fav/{recipeId}:
  *   delete:
  *     summary: Supprimer une recette des favoris de l'utilisateur connecté
- *     tags: [Users]
+ *     tags: [Users (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: recipeId

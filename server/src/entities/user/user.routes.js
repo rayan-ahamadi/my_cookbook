@@ -2,13 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { uploadImage, processImage } = require('../../middlewares/multerSharpConfig');
 
-/**
- * @swagger
- * tags:
- *   name: User (routes publiques)
- *   description: Gestion des utilisateurs
- */
-
 
 const { 
   register, 
@@ -21,7 +14,7 @@ const {
  * /auth/register:
  *   post:
  *     summary: Inscription d'un nouvel utilisateur
- *     tags: [Auth]
+ *     tags: [Auth (routes publiques)]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
@@ -36,6 +29,12 @@ const {
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "John"
+ *               surname:
+ *                 type: string
+ *                 example: "Doe"
  *               username:
  *                 type: string
  *                 example: "johndoe"
@@ -47,6 +46,10 @@ const {
  *                 type: string
  *                 format: password
  *                 example: "securepassword123"
+ *               role:
+ *                 type: string
+ *                 enum: ['user', 'author', 'admin']
+ *                 example: "user"
  *     responses:
  *       201:
  *         description: Utilisateur créé avec succès
@@ -62,7 +65,7 @@ router.post('/register', uploadImage.single("userAvatar"), processImage(200, "av
  * /auth/login:
  *   post:
  *     summary: Connexion d'un utilisateur
- *     tags: [Auth]
+ *     tags: [Auth (routes publiques)]
  *     requestBody:
  *       required: true
  *       content:

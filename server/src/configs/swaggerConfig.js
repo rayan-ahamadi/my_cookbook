@@ -7,7 +7,7 @@ const options = {
     info: {
       title: 'API Documentation',
       version: '1.0.0',
-      description: 'Documentation de l’API Express avec Swagger',
+      description: 'Documentation de l’API de My_Cookbook',
     },
     servers: [
       {

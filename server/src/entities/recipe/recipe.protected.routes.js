@@ -2,14 +2,6 @@ const Express = require('express');
 const router = Express.Router();
 const { uploadImage, processImage } = require('../../middlewares/multerSharpConfig');
 
-/**
- * @swagger
- * tags:
- *   name: Recipes (routes protégées)
- *   description: Gestion des recettes
- */
-
-
 const { 
   addRecipe, 
   updateRecipe, 
@@ -24,7 +16,7 @@ const {
  * /recipe:
  *   post:
  *     summary: Ajouter une nouvelle recette
- *     tags: [Recipes]
+ *     tags: [Recipes (routes protégées)]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
@@ -39,14 +31,42 @@ const {
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               title:
  *                 type: string
  *                 example: "Pizza Margherita"
  *               ingredients:
  *                 type: array
  *                 items:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       example: "Tomate"
+ *                     quantity:
+ *                       type: number
+ *                       example: 2
+ *                     unit:
+ *                       type: string
+ *                       example: "pièces"
+ *                     notes:
+ *                       type: string
+ *                       example: "Utiliser des tomates fraîches"
+ *               instructions:
+ *                 type: array
+ *                 items:
  *                   type: string
- *                 example: ["Tomate", "Mozzarella", "Basilic"]
+ *                 example: ["Préchauffer le four à 220°C", "Étaler la pâte à pizza"]
+ *               season:
+ *                 type: string
+ *                 enum: ['printemps', 'été', 'automne', 'hiver']
+ *                 example: "été"
+ *               difficulty:
+ *                 type: string
+ *                 enum: ['facile', 'moyen', 'difficile']
+ *                 example: "facile"
+ *               duration:
+ *                 type: number
+ *                 example: 30
  *     responses:
  *       201:
  *         description: Recette ajoutée avec succès
@@ -60,7 +80,7 @@ router.post('/', uploadImage.single("recipeImage"), processImage(800, "recipe"),
  * /recipe/{id}:
  *   put:
  *     summary: Mettre à jour une recette
- *     tags: [Recipes]
+ *     tags: [Recipes (routes protégées)]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
@@ -74,21 +94,49 @@ router.post('/', uploadImage.single("recipeImage"), processImage(800, "recipe"),
  *         name: recipeImage
  *         type: file
  *         description: Nouvelle image de la recette (optionnel)
- *     requestBody:
+ *requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               title:
  *                 type: string
- *                 example: "Pâtes Carbonara"
+ *                 example: "Pizza Margherita"
  *               ingredients:
  *                 type: array
  *                 items:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       example: "Tomate"
+ *                     quantity:
+ *                       type: number
+ *                       example: 2
+ *                     unit:
+ *                       type: string
+ *                       example: "pièces"
+ *                     notes:
+ *                       type: string
+ *                       example: "Utiliser des tomates fraîches"
+ *               instructions:
+ *                 type: array
+ *                 items:
  *                   type: string
- *                 example: ["Pâtes", "Œufs", "Pancetta"]
+ *                 example: ["Préchauffer le four à 220°C", "Étaler la pâte à pizza"]
+ *               season:
+ *                 type: string
+ *                 enum: ['printemps', 'été', 'automne', 'hiver']
+ *                 example: "été"
+ *               difficulty:
+ *                 type: string
+ *                 enum: ['facile', 'moyen', 'difficile']
+ *                 example: "facile"
+ *               duration:
+ *                 type: number
+ *                 example: 30
  *     responses:
  *       200:
  *         description: Recette mise à jour avec succès
@@ -102,7 +150,7 @@ router.put('/:id', uploadImage.single("recipeImage"), processImage(800, "recipe"
  * /recipe/{id}:
  *   delete:
  *     summary: Supprimer une recette
- *     tags: [Recipes]
+ *     tags: [Recipes (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: id
@@ -123,7 +171,7 @@ router.delete('/:id', deleteRecipe);
  * /recipe/search/{search}:
  *   get:
  *     summary: Rechercher des recettes par mot-clé
- *     tags: [Recipes]
+ *     tags: [Recipes (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: search
@@ -144,7 +192,7 @@ router.get('/search/:search', searchRecipes);
  * /recipe/fav/{userId}:
  *   get:
  *     summary: Récupérer les recettes favorites d'un utilisateur
- *     tags: [Recipes]
+ *     tags: [Recipes (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: userId

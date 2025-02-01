@@ -128,6 +128,10 @@ const getFavoriteRecipes = async (req, res, next) => {
     const favorites = await Recipe.find({ _id: { $in: favoritesId } });
     res.status(200).send({ favorites });
 
+    if (!favorites) {
+      res.status(404).send({ message: "No favorite recipes found" });
+    }
+
   }
   catch(error){
     next(error)

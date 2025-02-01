@@ -1,12 +1,7 @@
 const Express = require('express');
 const router = Express.Router();
 
-/**
- * @swagger
- * tags:
- *   name: Comments (routes publiques)
- *   description: Gestion des commentaires
- */
+
 
 const {
   getComment, 
@@ -18,7 +13,7 @@ const {
  * /comments/{id}:
  *   get:
  *     summary: Récupérer un commentaire par son ID
- *     tags: [Comments]
+ *     tags: [Comments (routes publiques)]
  *     parameters:
  *       - in: path
  *         name: id
@@ -39,7 +34,7 @@ router.get('/:id', getComment);
  * /comments/recipe/{recipeId}:
  *   get:
  *     summary: Récupérer les commentaires d'une recette
- *     tags: [Comments]
+ *     tags: [Comments (routes publiques)]
  *     parameters:
  *       - in: path
  *         name: recipeId

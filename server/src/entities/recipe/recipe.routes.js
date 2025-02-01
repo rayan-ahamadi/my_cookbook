@@ -1,14 +1,6 @@
 const Express = require('express');
 const Router = Express.Router();
 
-/**
- * @swagger
- * tags:
- *   name: Recipes (routes publiques)
- *   description: Gestion des recettes
- */
-
-
 const { 
   getRecipes, 
   getRecipe, 

@@ -1,13 +1,6 @@
 const Express = require('express');
 const router = Express.Router();
 
-/**
- * @swagger
- * tags:
- *   name: Comments (routes protégées)
- *   description: Gestion des commentaires
- */
-
 
 const {
   getAllComment, 
@@ -23,7 +16,7 @@ const {
  * /comments:
  *   get:
  *     summary: Récupérer tous les commentaires
- *     tags: [Comments]
+ *     tags: [Comments (routes protégées)]
  *     responses:
  *       200:
  *         description: Liste de tous les commentaires récupérée avec succès
@@ -37,7 +30,7 @@ router.get('/', getAllComment);
  * /comments/recipe/{recipeId}:
  *   post:
  *     summary: Ajouter un commentaire à une recette
- *     tags: [Comments]
+ *     tags: [Comments (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: recipeId
@@ -52,9 +45,9 @@ router.get('/', getAllComment);
  *           schema:
  *             type: object
  *             properties:
- *               userId:
- *                 type: integer
- *                 example: 1
+ *               author:
+ *                 type: string
+ *                 example: "60d0fe4f5311236168a109ca"
  *               content:
  *                 type: string
  *                 example: "Cette recette est incroyable !"
@@ -71,7 +64,7 @@ router.post('/recipe/:recipeId', postComment);
  * /comments/{id}:
  *   put:
  *     summary: Mettre à jour un commentaire
- *     tags: [Comments]
+ *     tags: [Comments (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: id
@@ -86,9 +79,12 @@ router.post('/recipe/:recipeId', postComment);
  *           schema:
  *             type: object
  *             properties:
+ *               author:
+ *                 type: string
+ *                 example: "60d0fe4f5311236168a109ca"
  *               content:
  *                 type: string
- *                 example: "J'ai modifié mon commentaire !"
+ *                 example: "Cette recette est incroyable !"
  *     responses:
  *       200:
  *         description: Commentaire mis à jour avec succès
@@ -102,7 +98,7 @@ router.put('/:id', updateComment);
  * /comments/{id}:
  *   delete:
  *     summary: Supprimer un commentaire
- *     tags: [Comments]
+ *     tags: [Comments (routes protégées)]
  *     parameters:
  *       - in: path
  *         name: id

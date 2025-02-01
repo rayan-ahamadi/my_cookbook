@@ -1,6 +1,7 @@
 const Recipe = require("../recipe/recipe.model");
 const { checkAuthor } = require("../../helpers/userHelper");
 const { deleteRecipeImage } = require("../../helpers/imageHelpers");
+const User = require("../user/user.model")
 
 // Pour les routes non protégées (Consultation des recettes sans compte)
 
@@ -103,6 +104,20 @@ const deleteRecipe = async (req, res, next) => {
   }
 }
 
+const getFavoriteRecipes = async (req, res, next) => {
+  try{
+    const user = await User.findById(req.params.userId)
+    const favoritesId = user.favorites
+
+    const favorites = await Recipe.find({ _id: { $in: favoritesId } });
+    res.status(200).send({ favorites });
+
+  }
+  catch(error){
+    next(error)
+  }
+}
+
 module.exports = {
   getRecipes,
   getRecipe,
@@ -111,4 +126,5 @@ module.exports = {
   addRecipe,
   updateRecipe,
   deleteRecipe,
+  getFavoriteRecipes
 };

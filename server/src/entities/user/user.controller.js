@@ -3,6 +3,7 @@ const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper")
 const { checkRole } = require("../../helpers/userHelper");
 const { deleteAvatar } = require("../../helpers/imageHelpers");
 const User = require("./user.model");
+const Recipe = require("../recipe/recipe.model");
 
 // Pour les routes non protégées
 
@@ -151,11 +152,58 @@ const deleteUser = async (req,res,next) => {
   }
 }
 
+const addToFavorites = async (req,res,next) => {
+  try {
+    const userId = decodeToken(req.cookies.jwt).id;
+    const user = await User.findById(userId);
+    const recipe = await Recipe.findById(req.params.recipeId);
+
+    // Vérifier que la recette n'est pas dans la liste de favoris
+    if (!user.favorites.includes(recipe._id)) {
+      user.favorites.push(recipe._id);
+      recipe.favorites += 1;
+      await user.save();
+      await recipe.save();
+    } else {
+      return res.status(400).send({ message: 'Recipe already in favorites' });
+    }
+    res.status(200).send({user});
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+const removeFromFavorites = async (req,res,next) => {
+  try {
+    const userId = decodeToken(req.cookies.jwt).id;
+    const user = await User.findById(userId);
+    const recipe = await Recipe.findById(req.params.recipeId);
+
+    // Vérifier que la recette est dans sa liste de favoris
+    if (user.favorites.includes(recipe._id)) {
+      user.favorites = user.favorites.filter(fav => fav.toString() !== recipe._id.toString());
+      recipe.favorites -= 1;
+      await user.save();
+      await recipe.save();
+    } else {
+      return res.status(400).send({ message: 'Recipe already in favorites' });
+    }
+    res.status(200).send({user});
+  }
+  catch (error) {
+    next(error);
+  }
+}
+
+
 module.exports = {
   register,
   login,
   getUser,
   getAllUsers,
   updateUser,
-  deleteUser
+  deleteUser,
+  addToFavorites,
+  removeFromFavorites,
 };

@@ -9,7 +9,7 @@ const {
 } = require('./comment.controller');
 
 Router.get('/', getAllComment);
-Router.post('recipe/:recipeId', postComment);
+Router.post('/recipe/:recipeId', postComment);
 Router.put('/:id', updateComment);
 Router.delete('/:id', deleteComment);
 

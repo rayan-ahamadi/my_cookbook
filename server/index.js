@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectToDatabase = require('./src/configs/dbConfig');
 const { refreshToken } = require('./src/helpers/jwtHelper');
-const { upload, processImage } = require('./src/configs/multerConfig');
 const { verifyToken } = require('./src/middlewares/authMiddleware');
 const cookieParser = require("cookie-parser");
 const cors = require("cors");

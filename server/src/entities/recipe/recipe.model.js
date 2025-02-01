@@ -48,6 +48,10 @@ const recipeSchema = new mongoose.Schema({
     ref: 'Comments',
     default: [],
   },
+  favorites : {
+    type: Number,
+    default:0,
+  }
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);

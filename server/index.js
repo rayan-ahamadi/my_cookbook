@@ -5,6 +5,8 @@ const { refreshToken } = require('./src/helpers/jwtHelper');
 const { verifyToken } = require('./src/middlewares/authMiddleware');
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const setupSwagger = require('./src/configs/swaggerConfig');
+const { set } = require('mongoose');
 
 
 dotenv.config(); // Charger les variables d'environnement
@@ -24,6 +26,10 @@ const port = process.env.SERVER_PORT || 5000;
 connectToDatabase();
 
 // Routes
+
+// Swagger
+setupSwagger(app);
+
 // Pour le test
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -32,13 +38,14 @@ app.get('/', (req, res) => {
 app.use('/api/user', require('./src/entities/user/user.routes.js'));
 app.use('/api/recipe', require('./src/entities/recipe/recipe.routes'));
 app.use('/api/comment', require('./src/entities/comment/comment.routes'));
-app.post('/api/refresh', refreshToken);
 // Avec Authentification, exemple : ajouter une recette, modifier une recette, supprimer une recette
 app.use('/api/protected/recipe', verifyToken, require('./src/entities/recipe/recipe.protected.routes'));
 app.use('/api/protected/user', verifyToken, require('./src/entities/user/user.protected.routes.js'));
 app.use('/api/protected/comment', verifyToken, require('./src/entities/comment/comment.protected.routes'));
+// Rafraîchir le token
+app.post('/api/refresh', refreshToken);
 
-// Guard routes
+// Gestion des erreurs
 app.use((req, res, next) => {
   const error = {
     status: 404,
@@ -57,6 +64,7 @@ app.use((error, req, res, next) => {
     },
   });
 });
+
 
 app.listen(port, () => {
   console.log(`API listening on port ${port}`)

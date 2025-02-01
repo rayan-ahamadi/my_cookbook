@@ -2,6 +2,7 @@ const Recipe = require("../recipe/recipe.model");
 const User = require("../user/user.model")
 const { checkAuthor } = require("../../helpers/userHelper");
 const { deleteRecipeImage } = require("../../helpers/imageHelpers");
+const { escapeRegex } = require("../../helpers/regexHelper");
 
 
 // Pour les routes non protégées (Consultation des recettes sans compte)
@@ -37,9 +38,7 @@ const getRecipesPaginate = async (req,res,next) => {
   }
 }
 
-function escapeRegex(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-}
+
 
 const searchRecipes = async (req,res,next) => {
   try {

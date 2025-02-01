@@ -1,12 +1,59 @@
 const Express = require('express');
-const Router = Express.Router();
+const router = Express.Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Comments (routes publiques)
+ *   description: Gestion des commentaires
+ */
 
 const {
   getComment, 
   getCommentByRecipe,
 } = require('./comment.controller');
 
-Router.get('/:id', getComment);
-Router.get('/recipe/:recipeId', getCommentByRecipe);
+/**
+ * @swagger
+ * /comments/{id}:
+ *   get:
+ *     summary: Récupérer un commentaire par son ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID du commentaire à récupérer
+ *     responses:
+ *       200:
+ *         description: Commentaire récupéré avec succès
+ *       404:
+ *         description: Commentaire non trouvé
+ */
+router.get('/:id', getComment);
 
-module.exports = Router;
+/**
+ * @swagger
+ * /comments/recipe/{recipeId}:
+ *   get:
+ *     summary: Récupérer les commentaires d'une recette
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: recipeId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la recette dont on veut récupérer les commentaires
+ *     responses:
+ *       200:
+ *         description: Liste des commentaires récupérée avec succès
+ *       404:
+ *         description: Aucun commentaire trouvé pour cette recette
+ */
+router.get('/recipe/:recipeId', getCommentByRecipe);
+
+
+module.exports = router;

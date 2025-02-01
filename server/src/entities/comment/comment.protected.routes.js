@@ -13,7 +13,7 @@ const {
 
 /**
  * @swagger
- * /comments:
+ * /comment:
  *   get:
  *     summary: Récupérer tous les commentaires
  *     tags: [Comments (routes protégées)]
@@ -27,7 +27,7 @@ router.get('/', getAllComment);
 
 /**
  * @swagger
- * /comments/recipe/{recipeId}:
+ * /comment/recipe/{recipeId}:
  *   post:
  *     summary: Ajouter un commentaire à une recette
  *     tags: [Comments (routes protégées)]
@@ -61,7 +61,7 @@ router.post('/recipe/:recipeId', postComment);
 
 /**
  * @swagger
- * /comments/{id}:
+ * /comment/{id}:
  *   put:
  *     summary: Mettre à jour un commentaire
  *     tags: [Comments (routes protégées)]
@@ -95,7 +95,7 @@ router.put('/:id', updateComment);
 
 /**
  * @swagger
- * /comments/{id}:
+ * /comment/{id}:
  *   delete:
  *     summary: Supprimer un commentaire
  *     tags: [Comments (routes protégées)]

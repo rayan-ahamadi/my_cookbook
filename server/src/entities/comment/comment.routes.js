@@ -10,7 +10,7 @@ const {
 
 /**
  * @swagger
- * /comments/{id}:
+ * /comment/{id}:
  *   get:
  *     summary: Récupérer un commentaire par son ID
  *     tags: [Comments (routes publiques)]
@@ -31,7 +31,7 @@ router.get('/:id', getComment);
 
 /**
  * @swagger
- * /comments/recipe/{recipeId}:
+ * /comment/recipe/{recipeId}:
  *   get:
  *     summary: Récupérer les commentaires d'une recette
  *     tags: [Comments (routes publiques)]

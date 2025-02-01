@@ -16,7 +16,7 @@ const {
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   get:
  *     summary: Récupérer les informations d'un utilisateur par ID
  *     tags: [Users (routes protégées)]
@@ -37,7 +37,7 @@ router.get('/:id', getUser);
 
 /**
  * @swagger
- * /users/all:
+ * /user/all:
  *   get:
  *     summary: Récupérer la liste de tous les utilisateurs
  *     tags: [Users (routes protégées)]
@@ -51,7 +51,7 @@ router.get('/all', getAllUsers);
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   put:
  *     summary: Mettre à jour un utilisateur
  *     tags: [Users (routes protégées)]
@@ -68,7 +68,7 @@ router.get('/all', getAllUsers);
  *         name: userAvatar
  *         type: file
  *         description: Nouvel avatar de l'utilisateur (optionnel)
- *      requestBody:
+ *     requestBody:
  *       required: true
  *       content:
  *         application/json:
@@ -106,7 +106,7 @@ router.put('/:id', uploadImage.single("userAvatar"), processImage(200, "avatar")
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   delete:
  *     summary: Supprimer un utilisateur
  *     tags: [Users (routes protégées)]
@@ -127,7 +127,7 @@ router.delete('/:id', deleteUser);
 
 /**
  * @swagger
- * /users/fav/{recipeId}:
+ * /user/fav/{recipeId}:
  *   post:
  *     summary: Ajouter une recette aux favoris de l'utilisateur connecté
  *     tags: [Users (routes protégées)]
@@ -148,7 +148,7 @@ router.post('/fav/:recipeId', addToFavorites);
 
 /**
  * @swagger
- * /users/fav/{recipeId}:
+ * /user/fav/{recipeId}:
  *   delete:
  *     summary: Supprimer une recette des favoris de l'utilisateur connecté
  *     tags: [Users (routes protégées)]

@@ -11,7 +11,7 @@ const {
 
 /**
  * @swagger
- * /auth/register:
+ * /user/register:
  *   post:
  *     summary: Inscription d'un nouvel utilisateur
  *     tags: [Auth (routes publiques)]
@@ -62,7 +62,7 @@ router.post('/register', uploadImage.single("userAvatar"), processImage(200, "av
 
 /**
  * @swagger
- * /auth/login:
+ * /user/login:
  *   post:
  *     summary: Connexion d'un utilisateur
  *     tags: [Auth (routes publiques)]

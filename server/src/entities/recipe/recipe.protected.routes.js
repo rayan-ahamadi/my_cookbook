@@ -77,7 +77,7 @@ router.post('/', uploadImage.single("recipeImage"), processImage(800, "recipe"),
 
 /**
  * @swagger
- * /recipe/{id}:
+ *  /recipe/{id}:
  *   put:
  *     summary: Mettre à jour une recette
  *     tags: [Recipes (routes protégées)]
@@ -94,7 +94,7 @@ router.post('/', uploadImage.single("recipeImage"), processImage(800, "recipe"),
  *         name: recipeImage
  *         type: file
  *         description: Nouvelle image de la recette (optionnel)
- *requestBody:
+ *     requestBody:
  *       required: true
  *       content:
  *         application/json:

@@ -10,7 +10,7 @@ const {
 
  /**
  * @swagger
- * /:
+ * /recipe/:
  *   get:
  *     summary: Récupérer toutes les recettes
  *     tags: [Recipes (routes publiques)]
@@ -22,7 +22,7 @@ Router.get('/', getRecipes);
 
 /**
  * @swagger
- * /{id}:
+ * /recipe/{id}:
  *   get:
  *     summary: Récupérer une recette par ID
  *     tags: [Recipes (routes publiques)]
@@ -41,7 +41,7 @@ Router.get('/:id', getRecipe);
 
 /**
  * @swagger
- * /limit/{limit}:
+ * /recipe/limit/{limit}:
  *   get:
  *     summary: Récupérer un nombre limité de recettes
  *     tags: [Recipes (routes publiques)]
@@ -60,7 +60,7 @@ Router.get('/limit/:limit', getRecipesWithLimit);
 
 /**
  * @swagger
- * /paginate/{page}:
+ * /recipe/paginate/{page}:
  *   get:
  *     summary: Récupérer les recettes paginées
  *     tags: [Recipes (routes publiques)]

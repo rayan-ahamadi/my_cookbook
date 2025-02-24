@@ -1,71 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const { uploadImage, processImage } = require('../../middlewares/multerSharpConfig');
-const { protectRoute } = require('./user.routes');  // Référence au middleware de protection des routes
 
-const {
-  getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
-  addToFavorites,
-  removeFromFavorites,
+
+const { 
+  register, 
+  login 
 } = require('./user.controller');
 
-/**
- * @swagger
- * /user/{id}:
- *   get:
- *     summary: Récupérer les informations d'un utilisateur par ID
- *     tags: [Users (routes protégées)]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de l'utilisateur
- *     responses:
- *       200:
- *         description: Informations de l'utilisateur récupérées avec succès
- *       404:
- *         description: Utilisateur non trouvé
- */
-router.get('/:id', protectRoute, getUser);  // Ajout du middleware protectRoute
 
 /**
  * @swagger
- * /user/all:
- *   get:
- *     summary: Récupérer la liste de tous les utilisateurs
- *     tags: [Users (routes protégées)]
- *     responses:
- *       200:
- *         description: Liste des utilisateurs récupérée avec succès
- *       404:
- *         description: Aucun utilisateur trouvé
- */
-router.get('/all', protectRoute, getAllUsers);  // Ajout du middleware protectRoute
-
-/**
- * @swagger
- * /user/{id}:
- *   put:
- *     summary: Mettre à jour un utilisateur
- *     tags: [Users (routes protégées)]
+ * /user/register:
+ *   post:
+ *     summary: Inscription d'un nouvel utilisateur
+ *     tags: [Auth (routes publiques)]
  *     consumes:
  *       - multipart/form-data
  *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de l'utilisateur à mettre à jour
  *       - in: formData
  *         name: userAvatar
  *         type: file
- *         description: Nouvel avatar de l'utilisateur (optionnel)
+ *         description: Avatar de l'utilisateur (optionnel)
  *     requestBody:
  *       required: true
  *       content:
@@ -95,74 +51,45 @@ router.get('/all', protectRoute, getAllUsers);  // Ajout du middleware protectRo
  *                 enum: ['user', 'author', 'admin']
  *                 example: "user"
  *     responses:
- *       200:
- *         description: Utilisateur mis à jour avec succès
- *       404:
- *         description: Utilisateur non trouvé
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *       400:
+ *         description: Erreur de validation
+ *       409:
+ *         description: L'utilisateur existe déjà
  */
-router.put('/:id', protectRoute, uploadImage.single("userAvatar"), processImage(200, "avatar"), updateUser);  // Ajout du middleware protectRoute
+router.post('/register', uploadImage.single("userAvatar"), processImage(200, "avatar"), register);
 
 /**
  * @swagger
- * /user/{id}:
- *   delete:
- *     summary: Supprimer un utilisateur
- *     tags: [Users (routes protégées)]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de l'utilisateur à supprimer
- *     responses:
- *       200:
- *         description: Utilisateur supprimé avec succès
- *       404:
- *         description: Utilisateur non trouvé
- */
-router.delete('/:id', protectRoute, deleteUser);  // Ajout du middleware protectRoute
-
-/**
- * @swagger
- * /user/fav/{recipeId}:
+ * /user/login:
  *   post:
- *     summary: Ajouter une recette aux favoris de l'utilisateur connecté
- *     tags: [Users (routes protégées)]
- *     parameters:
- *       - in: path
- *         name: recipeId
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de la recette à ajouter aux favoris
+ *     summary: Connexion d'un utilisateur
+ *     tags: [Auth (routes publiques)]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "johndoe@example.com"
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: "securepassword123"
  *     responses:
  *       200:
- *         description: Recette ajoutée aux favoris avec succès
+ *         description: Connexion réussie, retourne un token JWT
  *       400:
- *         description: Erreur lors de l'ajout aux favoris
+ *         description: Erreur de validation
+ *       401:
+ *         description: Identifiants incorrects
  */
-router.post('/fav/:recipeId', protectRoute, addToFavorites);  // Ajout du middleware protectRoute
+router.post('/login', login);
 
-/**
- * @swagger
- * /user/fav/{recipeId}:
- *   delete:
- *     summary: Supprimer une recette des favoris de l'utilisateur connecté
- *     tags: [Users (routes protégées)]
- *     parameters:
- *       - in: path
- *         name: recipeId
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de la recette à supprimer des favoris
- *     responses:
- *       200:
- *         description: Recette retirée des favoris avec succès
- *       400:
- *         description: Erreur lors de la suppression des favoris
- */
-router.delete('/fav/:recipeId', protectRoute, removeFromFavorites);  // Ajout du middleware protectRoute
 
 module.exports = router;

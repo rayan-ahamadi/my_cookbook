@@ -1,26 +1,15 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config(); // Charger les variables d'environnement
 
 async function connectToDatabase() {
-  const dbUrl = process.env.DB_URL;
-  const dbName = process.env.DB_NAME || 'cookBook';
-
-  if (!dbUrl) {
-    console.error('❌ DB_URL n\'est pas défini dans le fichier .env.');
-    process.exit(1);
-  }
-
   try {
-    await mongoose.connect(dbUrl, {
-      dbName: dbName,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.DB_URL, {
+      dbName: process.env.DB_NAME,
     });
-    console.log(`✅ Connecté à MongoDB Atlas - Base : ${dbName}`);
+    console.log('Connexion à MongoDB réussie avec Mongoose');
   } catch (error) {
-    console.error('❌ Erreur de connexion à MongoDB :', error.message);
+    console.error('Erreur lors de la connexion à MongoDB avec Mongoose :', error);
     process.exit(1);
   }
 }
-
 module.exports = connectToDatabase;

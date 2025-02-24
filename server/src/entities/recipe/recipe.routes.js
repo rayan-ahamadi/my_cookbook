@@ -4,10 +4,8 @@ const Router = Express.Router();
 const { 
   getRecipes, 
   getRecipe, 
-  searchRecipes,
   getRecipesWithLimit,
-  getRecipesPaginate,
-  getRecipesBySeason,
+  getRecipesPaginate
  } = require('./recipe.controller');
 
  /**
@@ -78,46 +76,5 @@ Router.get('/limit/:limit', getRecipesWithLimit);
  *         description: Liste des recettes paginées
  */
 Router.get('/paginate/:page', getRecipesPaginate)
-
-/**
- * @swagger
- * /recipe/search/{search}:
- *   get:
- *     summary: Rechercher des recettes par mot-clé
- *     tags: [Recipes (routes publiques)]
- *     parameters:
- *       - in: path
- *         name: search
- *         required: true
- *         schema:
- *           type: string
- *         description: Mot-clé de recherche
- *     responses:
- *       200:
- *         description: Résultats de la recherche
- *       404:
- *         description: Aucune recette trouvée
- */
-Router.get('/search/:search', searchRecipes);
-
-/**
- * 
- * @swagger
- * /recipe/season/{season}:
- *   get:
- *     summary: Récupérer les recettes par saison
- *     tags: [Recipes (routes publiques)]
- *     parameters:
- *       - in: path
- *         name: season
- *         required: true
- *         schema:
- *           type: string
- *         description: Saison
- *     responses:
- *       200:
- *         description: Liste des recettes par saison
- */
-Router.get('/season/:season', getRecipesBySeason);
 
 module.exports = Router;

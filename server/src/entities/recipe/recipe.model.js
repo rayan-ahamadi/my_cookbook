@@ -51,13 +51,9 @@ const recipeSchema = new mongoose.Schema({
   favorites : {
     type: Number,
     default:0,
-  },
-  keywords: {
-    type: [String],
-    default: [],
   }
 });
 
-recipeSchema.index({ title: 'text', 'ingredients.name': 'text', keywords: 'text' });
+recipeSchema.index({ title: 'text', 'ingredients.name': 'text'});
 
 module.exports = mongoose.model('Recipe', recipeSchema);

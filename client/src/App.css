@@ -1,19 +1,17 @@
 /* src/main.css */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root{
+  --main-color: #3C6300;
+  --secondary-color: #9F0712;
+  --light-color: #FEFCE8;
+  --secondary-light-color: #FFFFFF;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
-    text-align: center;
-  }
-  
-  main {
-    padding: 20px;
-  }
-  
+  font-family: 'Lato',Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--light-color);
+}

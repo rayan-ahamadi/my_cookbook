@@ -20,7 +20,7 @@ app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true,
 }));
-const port = process.env.SERVER_PORT || 5000;
+const port = process.env.SERVER_PORT || 5001;
 
 // Connexion à MongoDB
 connectToDatabase();
@@ -69,3 +69,4 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`API listening on port ${port}`)
 })
+

@@ -166,26 +166,6 @@ router.put('/:id', uploadImage.single("recipeImage"), processImage(800, "recipe"
  */
 router.delete('/:id', deleteRecipe);
 
-/**
- * @swagger
- * /recipe/search/{search}:
- *   get:
- *     summary: Rechercher des recettes par mot-clé
- *     tags: [Recipes (routes protégées)]
- *     parameters:
- *       - in: path
- *         name: search
- *         required: true
- *         schema:
- *           type: string
- *         description: Mot-clé de recherche
- *     responses:
- *       200:
- *         description: Résultats de la recherche
- *       404:
- *         description: Aucune recette trouvée
- */
-router.get('/search/:search', searchRecipes);
 
 /**
  * @swagger

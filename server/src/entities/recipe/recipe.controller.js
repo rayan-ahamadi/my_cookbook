@@ -62,6 +62,17 @@ const getRecipe = async (req, res, next) => {
   }
 };
 
+const getRecipesBySeason = async (req, res, next) => {
+  try {
+    const { season } = req.params;
+    const escapedSeason = escapeRegex(season);
+    const recipes = await Recipe.find({ season: escapedSeason });
+    res.status(200).send({recipes});
+  } catch (error) {
+    next(error);
+  }
+}
+
 // Pour les routes protégées (Ajout, modification, suppression des recettes)
 
 
@@ -147,5 +158,6 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getFavoriteRecipes,
-  searchRecipes
+  searchRecipes,
+  getRecipesBySeason,
 };

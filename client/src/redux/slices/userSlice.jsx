@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {login, register, getUser} from '../../services/api/entities/user/fetchUser';
 
+// Fonctions Asynchrones
 export const loginUser = createAsyncThunk(
   'user/login',
   async (formData) => {
@@ -17,7 +18,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-
+// Slice
 const userSlice = createSlice({
   name: 'user',
   initialState: {

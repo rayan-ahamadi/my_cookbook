@@ -1,6 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {getRecipeBySeason} from '../../services/api/entities/recipe/fetchRecipe';
 
+
+// Fonction Asynchrones
 export const fetchRecipeBySeason = createAsyncThunk(
   'recipe/fetchBySeason',
   async (season) => {
@@ -9,6 +11,8 @@ export const fetchRecipeBySeason = createAsyncThunk(
   }
 );
 
+
+// Slice
 const recipeSlice = createSlice({
   name: 'recipe',
   initialState: {

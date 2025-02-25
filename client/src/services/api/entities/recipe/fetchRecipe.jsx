@@ -10,4 +10,9 @@ const getRecipeById = async (id) => {
   return response.data;
 };
 
-export { getRecipeBySeason, getRecipeById };
+const getRecipeBySearch = async (search) => {
+  const response = await api.get('/recipe/search/' + search);
+  return response.data;
+};
+
+export { getRecipeBySeason, getRecipeById, getRecipeBySearch };

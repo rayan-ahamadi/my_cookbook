@@ -1,9 +1,39 @@
+/* Pour Chrome, Safari et Edge */
+input.searchbar::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Pour Firefox */
+input[type="search"]::-moz-search-clear {
+  display: none;
+}
+
+/* Pour Internet Explorer (si jamais) */
+input[type="search"]::-ms-clear {
+  display: none;
+}
+
+
+div.searchbar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+div.searchbar-container .search-icon {
+  position: relative;
+  right: 17%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 input.searchbar {
   height: 100%;
   max-width: 0px;
   padding: 0.8rem 0;
   font-size: 1rem;
-  border: 1px;
+  border: 1px solid transparent;
   border-radius: 30px;
   outline: none;
   opacity: 0;
@@ -17,16 +47,57 @@ input.searchbar.hover {
   opacity: 1;
 }
 
-div.searchbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+/* lorsque c'est inactif */
+nav.search-suggestions {
+  display: none;
+  overflow: auto;
 }
 
-div.searchbar .search-icon {
-  position: relative;
-  right: 17%;
-  font-size: 1.5rem;
-  cursor: pointer;
+/* lors de la recherche */
+nav.search-suggestions.results {
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 88.5%;
+  background-color: var(--secondary-light-color);
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height ease 2.5s ;
+}
+
+nav.search-suggestions.results.show {
+  max-height: 300px; 
+}
+
+nav.search-suggestions ul, nav.search-suggestions li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav.search-suggestions li {
+  border-bottom: 3px solid var(--secondary-color);
+  text-align: center;
+  padding : 0.5rem 0;
+  width: 100%;
+  height: 100%;
+}
+
+nav.search-suggestions ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container.searched {
+  background-color: var(--secondary-light-color);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  transition: all ease 0.5s;
+}
+
+.input-container.searched > input {
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }

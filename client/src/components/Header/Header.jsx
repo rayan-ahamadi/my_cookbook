@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/images/icon.png";
+import Searchbar from "../Searchbar/Searchbar";
 
 function Header() {
   return (
@@ -19,7 +20,7 @@ function Header() {
             <Link to="/recipes">Recettes</Link>
           </li>
           <li>
-            <input type="text" placeholder="Rechercher" />
+            <Searchbar/>
           </li>
         </ul>
       </nav>

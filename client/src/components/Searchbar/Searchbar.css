@@ -1,0 +1,32 @@
+input.searchbar {
+  height: 100%;
+  max-width: 0px;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  border: 1px;
+  border-radius: 30px;
+  outline: none;
+  opacity: 0;
+  transition: max-width ease 0.5s, padding ease 0.5s, opacity ease 0.5s, border ease 0.5s;
+}
+
+input.searchbar.hover {
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  max-width: 300px;
+  opacity: 1;
+}
+
+div.searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+div.searchbar .search-icon {
+  position: relative;
+  right: 17%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

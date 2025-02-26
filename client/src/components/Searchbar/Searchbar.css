@@ -58,7 +58,8 @@ nav.search-suggestions.results {
   display: block;
   position: absolute;
   top: 100%;
-  width: 88.5%; /* Chercher une autre solution pour le width */
+  /* width: 88.5%; Chercher une autre solution pour le width */
+  width: calc(100% - 2rem);
   background-color: var(--secondary-light-color);
   max-height: 0px;
   overflow: hidden;

@@ -55,7 +55,7 @@ function Searchbar() {
           {searchSuggestions && searchSuggestions.length > 0 ? (
             searchSuggestions.map((recipe) => (
               <li key={recipe._id}>
-                <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
+                <Link to={`/recipe/${recipe._id}`}>{recipe.title}</Link>
               </li>
             ))
           ) : (

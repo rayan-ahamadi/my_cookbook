@@ -1,3 +1,6 @@
 .env
 **/.env
 !.env.example
+uploads/image/avatar/*
+uploads/image/recipe/*
+uploads/files/*

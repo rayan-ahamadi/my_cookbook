@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faStar, faClock, faUser, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
+import { use } from "react";
 
 
 function Carousel ({ season }) {
@@ -20,6 +21,25 @@ function Carousel ({ season }) {
     dispatch(fetchRecipeBySeason(season));
   }, [dispatch,season]);
 
+  // pour le infinite scroll
+  useEffect(() => {
+    if (!carouselList.current || carouselList.current.children.length === 0) return;
+
+    const firstChild = carouselList.current.firstElementChild;
+    const lastChild = carouselList.current.lastElementChild;
+    const firstChildClone = firstChild.cloneNode(true);
+    const lastChildClone = lastChild.cloneNode(true);
+
+    console.log(firstChild, lastChild); 
+
+    if (firstChild && lastChild) {
+      carouselList.current.appendChild(firstChildClone);
+      carouselList.current.insertBefore(lastChildClone, firstChild);
+    }
+
+    carouselList.current.scrollLeft = firstChild?.offsetWidth || 0;
+  }, [carouselList.current]);
+
   if (loading) {
     return <h2 className="carousel">Loading...</h2>;
   }
@@ -27,9 +47,38 @@ function Carousel ({ season }) {
   const handleScroll = (direction) => {
     const scrollWidth = carouselList.current.firstChild.offsetWidth;
     if (direction === 'left') {
-      carouselList.current.scrollLeft -= scrollWidth;
+      carouselList.current.scrollBy({
+        left: -scrollWidth,
+        behavior: 'smooth',
+      });
     } else {
-      carouselList.current.scrollLeft += scrollWidth;
+      carouselList.current.scrollBy({
+        left: scrollWidth,
+        behavior
+        : 'smooth',
+      });
+    }
+
+    // infinite scroll
+    if (carouselList.current.scrollLeft === 0) {
+      carouselList.current.scrollBy({
+        left: carouselList.current.scrollWidth - scrollWidth * 2,
+        behavior: 'auto',
+      })
+      carouselList.current.scrollBy({
+        left: -scrollWidth,
+        behavior: 'smooth',
+      })
+    }
+    if (carouselList.current.scrollLeft === carouselList.current.scrollWidth - scrollWidth) {
+      carouselList.current.scrollBy({
+        left: -carouselList.current.scrollWidth + scrollWidth * 2,
+        behavior: 'auto',
+      })
+      carouselList.current.scrollBy({
+        left: scrollWidth,
+        behavior: 'smooth',
+      })
     }
   }
 

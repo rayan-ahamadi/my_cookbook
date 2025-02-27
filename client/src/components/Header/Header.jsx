@@ -1,12 +1,30 @@
 import React from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/images/icon.png";
 import Searchbar from "../Searchbar/Searchbar";
 
 function Header() {
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header>
+    <header className={scroll ? 'scrolled' : ''}>
       <h1>
         <img src={logo} alt="MyCookBook" />
         myCookBook

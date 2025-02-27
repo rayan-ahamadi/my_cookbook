@@ -1,0 +1,107 @@
+.carousel {
+  display : flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-arrow {
+  position: absolute;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: color ease 0.3s;
+  color: var(--second-secondary-color);
+}
+
+.carousel-arrow:hover {
+  color: var(--secondary-color);
+}
+
+.carousel-arrow.left {
+  left: 30px
+}
+
+.carousel-arrow.right {
+  right: 30px;
+}
+
+.carousel-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  grid-template-columns: repeat(1, 100%);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+} 
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background-color: grey;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.recipe-card-content {
+  width: 60%;
+  background-color: var(--secondary-light-color);
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 5px;
+}
+
+.stars svg {
+  color: goldenrod;
+}
+
+.infos-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 50px;
+}
+
+.infos-row div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+button.ctc-recipe {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color ease 0.3s;
+}
+
+
+button a {
+  color: white;
+  text-decoration: none;
+}
+
+button.ctc-recipe:hover {
+  background-color: var(--second-secondary-color);
+}

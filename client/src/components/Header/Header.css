@@ -6,7 +6,29 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  /* background-color: var(--light-color); */
+  width: -webkit-fill-available;
+  transition: all ease 0.5s;
 }
+
+header:not(.scrolled) a, 
+header:not(.scrolled) h1,
+header:not(.scrolled) svg {
+  color: var(--second-main-color);
+}
+
+header:not(.scrolled) button {
+  color: black;
+  background-color: var(--main-color);
+}
+
+header.scrolled {
+  background-color: var(--light-color);
+}
+
 
 h1 img{
   width: 2rem;

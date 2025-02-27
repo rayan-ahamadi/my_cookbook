@@ -43,6 +43,9 @@ const recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  authorName: {
+    type: String
+  },
   comments : {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Comments',
@@ -51,9 +54,33 @@ const recipeSchema = new mongoose.Schema({
   favorites : {
     type: Number,
     default:0,
-  }
+  },
+  description : {
+    type: String,
+    required: true,
+  },
+  tags: {
+    type: [String],
+    default: [],
+  },
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
+  ratings: {
+    type: [Number],
+    default: [],
+  },
+  slug: {
+    type: String,
+    required: true,
+  },
 });
 
-recipeSchema.index({ title: 'text', 'ingredients.name': 'text'});
+recipeSchema.index({
+  title: 'text',
+  description: 'text',
+  tags: 'text',
+});
 
 module.exports = mongoose.model('Recipe', recipeSchema);

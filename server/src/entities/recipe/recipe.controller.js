@@ -138,6 +138,16 @@ const getFavoriteRecipes = async (req, res, next) => {
   }
 }
 
+const getRecipesBySeason = async (req, res, next) => {
+  try {
+    const { season } = req.params;
+    const recipes = await Recipe.find({ season: season });
+    res.status(200).send({ recipes });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getRecipes,
   getRecipe,
@@ -147,5 +157,6 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getFavoriteRecipes,
-  searchRecipes
+  searchRecipes,
+  getRecipesBySeason
 };

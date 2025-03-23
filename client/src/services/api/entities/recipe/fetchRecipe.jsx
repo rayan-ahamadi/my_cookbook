@@ -15,4 +15,20 @@ const getRecipeBySearch = async (search) => {
   return response.data;
 };
 
-export { getRecipeBySeason, getRecipeById, getRecipeBySearch };
+const getRecipes = async () => {
+  const response = await api.get('/recipe');
+  return response.data;
+}
+
+const addRecipe = async (recipe) => {
+  const response = await api.post('/recipe', recipe);
+  return response.data;
+}
+
+export { 
+  getRecipeBySeason, 
+  getRecipeById, 
+  getRecipeBySearch,
+  getRecipes, // à protéger quand y'aura l'authentification
+  addRecipe // à protéger quand y'aura l'authentification
+};

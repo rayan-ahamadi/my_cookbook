@@ -1,0 +1,4 @@
+.ql-container.ql-snow {
+    background-color: var(--secondary-light-color);
+    height: 30vh;
+}

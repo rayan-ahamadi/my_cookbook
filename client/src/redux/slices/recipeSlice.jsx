@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {getRecipeBySeason, getRecipeBySearch} from '../../services/api/entities/recipe/fetchRecipe';
+import {getRecipeBySeason, getRecipeBySearch, getRecipes, addRecipe} from '../../services/api/entities/recipe/fetchRecipe';
 
 
-// Fonction Asynchrones
+// Fonction Asynchrones (mettre les actions dans un dossier actions)
 export const fetchRecipeBySeason = createAsyncThunk(
   'recipe/fetchBySeason',
   async (season) => {
@@ -18,6 +18,22 @@ export const fetchRecipeBySearch = createAsyncThunk(
     return response;
   }
 );
+
+export const fetchRecipes = createAsyncThunk(
+  'recipe/fetchRecipes',
+  async () => {
+    const response = await getRecipes();
+    return response;
+  }
+);
+
+export const createRecipe = createAsyncThunk(
+  'recipe/addRecipe',
+  async (formData) => {
+    const response = await addRecipe(formData);
+    return response;
+  }
+)
 
 
 // Slice
@@ -51,6 +67,16 @@ const recipeSlice = createSlice({
     })
     .addCase(fetchRecipeBySearch.rejected, (state) => {
       state.searchLoading = false;
+    })
+    .addCase(fetchRecipes.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(fetchRecipes.fulfilled, (state, action) => {
+      state.recipes = action.payload.recipes;
+      state.loading = false;
+    })
+    .addCase(fetchRecipes.rejected, (state) => {
+      state.loading = false;
     })
   }
 });

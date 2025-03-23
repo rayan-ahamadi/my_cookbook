@@ -11,13 +11,13 @@ const register = async (req,res,next) => {
   try {
 
     // si création d'un nouveau admin, vérifie si la requête est bien faite par un admin
-    if (req.body.role === 'admin') {
-      const role = await checkRole(req,res,next);
-      if (role !== 'admin') {
-        res.status(403).send({ message: 'Forbidden' });
-        return;
-      }
-    }
+    // if (req.body.role === 'admin') {
+    //   const role = await checkRole(req,res,next);
+    //   if (role !== 'admin') {
+    //     res.status(403).send({ message: 'Forbidden' });
+    //     return;
+    //   }
+    // }
 
     const user = new User(req.body);
 

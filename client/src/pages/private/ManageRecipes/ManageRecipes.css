@@ -1,0 +1,7 @@
+main {
+    display: flex;
+}
+
+header {
+    position: static !important;
+}

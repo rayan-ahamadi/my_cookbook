@@ -5,6 +5,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   ingredients: [
     {
       name: { type: String, required: true }, 
@@ -14,7 +18,7 @@ const recipeSchema = new mongoose.Schema({
     },
   ],
   instructions: {
-    type: [String],
+    type: String,
     required: true,
   },
   image: {
@@ -55,10 +59,6 @@ const recipeSchema = new mongoose.Schema({
     type: Number,
     default:0,
   },
-  description : {
-    type: String,
-    required: true,
-  },
   tags: {
     type: [String],
     default: [],
@@ -82,5 +82,7 @@ recipeSchema.index({
   description: 'text',
   tags: 'text',
 });
+
+recipeSchema.index({ slug: 1 }, { unique: true });
 
 module.exports = mongoose.model('Recipe', recipeSchema);

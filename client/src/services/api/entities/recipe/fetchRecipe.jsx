@@ -21,7 +21,17 @@ const getRecipes = async () => {
 }
 
 const addRecipe = async (recipe) => {
-  const response = await api.post('/recipe', recipe);
+  const response = await api.post('protected/recipe', recipe);
+  return response.data;
+}
+
+const updateRecipe = async (recipe) => {
+  const response = await api.put('protected/recipe', recipe);
+  return response.data;
+} 
+
+const deleteRecipe = async (id) => {
+  const response = await api.delete('protected/recipe/' + id);
   return response.data;
 }
 
@@ -30,5 +40,7 @@ export {
   getRecipeById, 
   getRecipeBySearch,
   getRecipes, // à protéger quand y'aura l'authentification
-  addRecipe // à protéger quand y'aura l'authentification
+  addRecipe,// à protéger quand y'aura l'authentification
+  updateRecipe, // à protéger quand y'aura l'authentification
+  deleteRecipe // à protéger quand y'aura l'authentification
 };

@@ -1,40 +1,5 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {getRecipeBySeason, getRecipeBySearch, getRecipes, addRecipe} from '../../services/api/entities/recipe/fetchRecipe';
-
-
-// Fonction Asynchrones (mettre les actions dans un dossier actions)
-export const fetchRecipeBySeason = createAsyncThunk(
-  'recipe/fetchBySeason',
-  async (season) => {
-    const response = await getRecipeBySeason(season);
-    return response;
-  }
-);
-
-export const fetchRecipeBySearch = createAsyncThunk(
-  'recipe/fetchBySearch',
-  async (search) => {
-    const response = await getRecipeBySearch(search);
-    return response;
-  }
-);
-
-export const fetchRecipes = createAsyncThunk(
-  'recipe/fetchRecipes',
-  async () => {
-    const response = await getRecipes();
-    return response;
-  }
-);
-
-export const createRecipe = createAsyncThunk(
-  'recipe/addRecipe',
-  async (formData) => {
-    const response = await addRecipe(formData);
-    return response;
-  }
-)
-
+import {createSlice} from '@reduxjs/toolkit';
+import {fetchRecipeBySeason, fetchRecipeBySearch, fetchRecipes, createRecipe, removeRecipe, modifyRecipe} from '../actions/recipeActions';
 
 // Slice
 const recipeSlice = createSlice({
@@ -76,6 +41,33 @@ const recipeSlice = createSlice({
       state.loading = false;
     })
     .addCase(fetchRecipes.rejected, (state) => {
+      state.loading = false;
+    })
+    .addCase(createRecipe.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(createRecipe.fulfilled, (state) => {
+      state.loading = false;
+    })
+    .addCase(createRecipe.rejected, (state) => {
+      state.loading = false;
+    })
+    .addCase(removeRecipe.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(removeRecipe.fulfilled, (state) => {
+      state.loading = false;
+    })
+    .addCase(removeRecipe.rejected, (state) => {
+      state.loading = false;
+    })
+    .addCase(modifyRecipe.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(modifyRecipe.fulfilled, (state) => {
+      state.loading = false;
+    })
+    .addCase(modifyRecipe.rejected, (state) => {
       state.loading = false;
     })
   }

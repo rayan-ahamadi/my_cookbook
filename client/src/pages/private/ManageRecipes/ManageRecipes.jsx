@@ -15,6 +15,7 @@ function ManageRecipes() {
         <Routes>
           <Route path="/" element={<RecipeList />} />
           <Route path="/new" element={<RecipeForm />} />
+          <Route path="/edit/:id" element={<RecipeForm />} />
         </Routes>
       </main>
     </>

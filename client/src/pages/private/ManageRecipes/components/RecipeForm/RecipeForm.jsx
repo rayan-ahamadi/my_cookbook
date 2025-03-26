@@ -1,38 +1,64 @@
 import useForm from "../../../../../hooks/useForm"
-import {useDispatch} from "react-redux"
+import {useDispatch,useSelector} from "react-redux"
 import {createRecipe} from "../../../../../redux/slices/recipeSlice"
 import TextEditor from "../TextEditor/TextEditor"
 import { TagsInput } from "react-tag-input-component";
+import InputIngredients from "../InputIngredients/InputIngredients";
+import { useParams } from "react-router-dom";
 import "./RecipeForm.css"
 
 
 function RecipeForm() {
-    const initialState = {
-        title : "",
-        description: "",
-        ingredients: [],
-        instructions: [],
-        image: "",
-        season: "",
-        difficulty: "", 
-        duration: 0,
-        author: "67dfe25daa004facf9f5593f", // en attendant auth
-        authorName: "RayanAdmin", // en attendant auth
-        tags: [],
-        slug: ""
+    const {id} = useParams();
+    const recipes = useSelector(state => state.recipe.recipes);
+    let initialState = null;
+
+    if (!id) {
+        initialState = {
+            title : "",
+            description: "",
+            ingredients: [],
+            instructions: "",
+            image: "",
+            season: "",
+            difficulty: "", 
+            duration: 0,
+            author: "67dfe25daa004facf9f5593f", // en attendant auth
+            authorName: "rayanadmin", // en attendant auth
+            tags: [],
+            slug: ""
+        }
+    } else {
+        // Récupérer la recette à modifier via l'id
+        initialState = recipes.find(recipe => recipe._id === id);
     }
 
-    const handleFormSubmit = () => {
-        dispatch(createRecipe(formData));
+    const slugify = (text) => {
+        return text
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault;
+        formData.slug = slugify(formData.title);
+        if (id) {
+            dispatch(modifyRecipe(formData));
+        } else {
+            dispatch(createRecipe(formData));
+        }
     }
 
     const {formData,handleInputChange,handleSubmit} = useForm(initialState,handleFormSubmit)
     const dispatch = useDispatch();
 
-        
     return <main className="recipe-form">
         <h1>Ajouter une nouvelle recette</h1>
-        <form onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="title">Titre</label>
                 <input
@@ -64,18 +90,18 @@ function RecipeForm() {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="ingredients">Ingrédients</label>
-                <input
-                    type="text"
-                    id="ingredients"
-                    name="ingredients"
-                    value={formData.ingredients}
-                    onChange={handleInputChange}
+                <label htmlFor="ingredients">Ajouter un ingrédients</label>
+                <InputIngredients 
+                    handleInputChange={(ingrédients) => handleInputChange({ target: { name: "ingredients", value: ingrédients } })}
+                    ingredientState={formData.ingredients}
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="instructions">Instructions</label>
-                <TextEditor handleInputChange={handleInputChange} formData={formData.instructions} />
+                <TextEditor 
+                handleInputChange={(instructions) => handleInputChange({ target: { name: "instructions", value: instructions } })}
+                textState={formData.instructions}
+                />
             </div>
             <div className="form-group">
                 <label htmlFor="season">Saison de la recette</label>
@@ -125,7 +151,7 @@ function RecipeForm() {
                 placeHolder="Ajouter des tags pour votre recette"
                 />
             </div>
-            <button type="submit">Nouvelle Recette</button>
+            <input type="submit" value="Ajouter la recette"/>
         </form>
     </main>
 }

@@ -1,22 +1,6 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {login, register, getUser} from '../../services/api/entities/user/fetchUser';
+import {createSlice} from '@reduxjs/toolkit';
+import {loginUser, registerUser} from '../actions/userActions';
 
-// Fonctions Asynchrones
-export const loginUser = createAsyncThunk(
-  'user/login',
-  async (formData) => {
-    const response = await login(formData);
-    return response;
-  }
-);
-
-export const registerUser = createAsyncThunk(
-  'user/register',
-  async (formData) => {
-    const response = await register(formData);
-    return response;
-  }
-);
 
 // Slice
 const userSlice = createSlice({

@@ -57,7 +57,7 @@
     height: 150px; /* Ajuste la hauteur de l'éditeur Quill */
 }
 
-button[type="submit"] {
+input[type="submit"] {
     grid-column: span 2;
     padding: 12px;
     background: #28a745;

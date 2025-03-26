@@ -1,0 +1,39 @@
+.private-navbar {
+  background-color: var(--main-color);
+  width: 15%;
+}
+
+.private-navbar ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  gap: 1rem;
+  font-size: large;
+}
+
+.private-navbar ul li {
+  padding: 0.5rem;
+  width: auto;
+  transition: all 0.3s;
+}
+
+.private-navbar ul li:hover {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--main-color);
+  font-size: larger;
+  transition: all 0.3s;
+}
+
+.private-navbar a {
+  color: var(--secondary-light-color);
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.private-navbar a:hover {
+  color: var(--secondary-light-color);
+  text-decoration: none;
+}

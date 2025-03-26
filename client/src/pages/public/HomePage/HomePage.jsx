@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux"
-import { fetchRecipeBySeason } from "../../redux/slices/recipeSlice";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { useState } from "react";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
 import Carousel from "./components/Carousel/Carousel";
 import "./HomePage.css";
-import background1 from "../../assets/images/background-1.gif";
-import background2 from "../../assets/images/background-2.gif";
-import { getRecipeBySeason } from "../../services/api/entities/recipe/fetchRecipe";
+import background2 from "../../../assets/images/background-2.gif";
 
 function HomePage(){
   const getCurrentSeason = () => {
@@ -23,11 +19,7 @@ function HomePage(){
     }
   };
   const [season, setSeason] = useState(getCurrentSeason());
-
-  // if (loading) {
-  //   return <h1>Loading...</h1>;
-  // }
-
+  
   return (
       <>
       <Header />
@@ -43,7 +35,7 @@ function HomePage(){
             </h3>
           </section>
           <section className="carousel-recipes">
-            <Carousel season={season} />
+            <Carousel season={season} setSeason={setSeason}/>
           </section>
         </main>
       <Footer />

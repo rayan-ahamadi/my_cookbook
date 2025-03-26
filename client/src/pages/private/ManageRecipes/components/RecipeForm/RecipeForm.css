@@ -1,0 +1,91 @@
+.recipe-form {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group .rti--input {
+    width: 100%;
+}
+
+.form-group .rti--container {
+    padding: 5px;
+}
+
+.recipe-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.recipe-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: auto;
+}
+
+.form-group input[type="file"] {
+    border: none;
+    padding: 5px;
+}
+
+.form-group .ql-container {
+    height: 150px; /* Ajuste la hauteur de l'éditeur Quill */
+}
+
+input[type="submit"] {
+    grid-column: span 2;
+    padding: 12px;
+    background: #28a745;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: var(--main-color);
+}
+
+
+@media (max-width: 768px) {
+    .recipe-form form {
+        grid-template-columns: 1fr;
+    }
+    
+    button[type="submit"] {
+        grid-column: span 1;
+    }
+}
+
+
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+}

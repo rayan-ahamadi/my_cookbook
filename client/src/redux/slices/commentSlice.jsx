@@ -1,14 +1,5 @@
-import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
-import {getCommentByRecipe} from '../../services/api/entities/comment/fetchComment';
-
-// Fonction Asynchrones
-export const fetchCommentByRecipe = createAsyncThunk(
-  'comment/fetchByRecipe',
-  async (recipeId) => {
-    const response = await getCommentByRecipe(recipeId);
-    return response;
-  }
-);
+import {createSlice} from '@reduxjs/toolkit';
+import {fetchCommentByRecipe} from '../actions/commentActions';
 
 
 

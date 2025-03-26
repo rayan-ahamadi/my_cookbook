@@ -1,12 +1,11 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { fetchRecipeBySeason } from "../../../../redux/slices/recipeSlice";
+import { fetchRecipeBySeason } from "../../../../../redux/slices/recipeSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faStar, faClock, faUser, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
-import { use } from "react";
+import PropTypes from 'prop-types';
 
 
 function Carousel ({ season }) {
@@ -138,5 +137,8 @@ function Carousel ({ season }) {
     </div>
   );
 }
+Carousel.propTypes = {
+  season: PropTypes.string.isRequired,
+};
 
 export default Carousel;

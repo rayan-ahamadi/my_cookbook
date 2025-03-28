@@ -8,6 +8,7 @@ const userSlice = createSlice({
   initialState: {
     user: null,
     loading: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -19,6 +20,10 @@ const userSlice = createSlice({
       state.user = action.payload.user;
       state.loading = false;
     })
+    .addCase(loginUser.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    })
     .addCase(registerUser.pending, (state) => {
       state.loading = true;
     })
@@ -26,6 +31,10 @@ const userSlice = createSlice({
       state.user = action.payload.user;
       state.loading = false;
     }) 
+    .addCase(registerUser.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.loading = false;
+    })
   }
 });
 

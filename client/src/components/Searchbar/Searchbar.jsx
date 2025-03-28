@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { fetchRecipeBySearch } from '../../redux/slices/recipeSlice';
+import { fetchRecipeBySearch } from '../../redux/actions/recipeActions';
 import './Searchbar.css';
 
 

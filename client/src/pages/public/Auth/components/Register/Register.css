@@ -1,0 +1,206 @@
+/* src/styles/Register.css */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f0e3;
+  }
+  
+  .register-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 50vw;
+    text-align: center;
+  }
+  
+  .register-form h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #d2691e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .register-button:hover {
+    background-color: #bc5819;
+  }
+  
+  .error-message {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+
+  /* Styles généraux */
+.register-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chaque section du formulaire */
+.form-section {
+  border-radius: 6px;
+  background: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+  max-height: 0px;
+  width: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+/* Animation douce pour afficher les sections */
+.form-section.active {
+  max-height: 800px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  opacity: 1;
+  width: auto;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Style des groupes de champs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group input[type="radio"] {
+  display: none;
+}
+
+.form-group .role-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    margin-right: 20px;
+    gap: 30px;
+  margin-right: 20px;
+}
+
+.form-group .role-options label {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 25px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s;
+    width: 30%;
+}
+
+.form-group .role-options label:hover {
+  background: #f0f0f0;
+}
+
+.form-group .role-options input[type="radio"]:checked + label {
+  background: #2196f3;
+  color: white;
+  border: 1px solid #2196f3;
+}
+
+
+/* Avatar preview */
+.avatar-preview {
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0px auto;
+  border: 2px solid var(--main-color)
+}
+
+.avatar-preview img {
+  border: none;
+}
+
+/* Message d'erreur */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Bouton d'inscription */
+.register-button {
+  width: 100%;
+  padding: 12px;
+  background: #2196f3;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-button:hover {
+  background: #1976d2;
+}
+
+/* 🟢 Responsive : Réduction des marges sur mobile */
+@media (max-width: 768px) {
+  .register-form {
+      padding: 15px;
+  }
+
+  .form-section {
+      padding: 10px;
+  }
+}

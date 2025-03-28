@@ -1,3 +1,8 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 section.hero-section {
   height: 100vh;
   background-repeat: no-repeat;

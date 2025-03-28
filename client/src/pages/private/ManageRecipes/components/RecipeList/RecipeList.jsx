@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipes, removeRecipe} from "../../../../../redux/slices/recipeSlice";
+import { fetchRecipes, removeRecipe} from "../../../../../redux/actions/recipeActions";
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
 import './RecipeList.css';

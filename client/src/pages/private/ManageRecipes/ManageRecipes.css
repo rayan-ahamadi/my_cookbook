@@ -1,7 +1,7 @@
-main {
+main.back-office {
     display: flex;
 }
 
 header {
-    position: static !important;
+    /* position: static !important; */
 }

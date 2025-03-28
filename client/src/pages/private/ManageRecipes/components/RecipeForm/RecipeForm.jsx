@@ -1,6 +1,6 @@
 import useForm from "../../../../../hooks/useForm"
 import {useDispatch,useSelector} from "react-redux"
-import {createRecipe} from "../../../../../redux/slices/recipeSlice"
+import {createRecipe} from "../../../../../redux/actions/recipeActions"
 import TextEditor from "../TextEditor/TextEditor"
 import { TagsInput } from "react-tag-input-component";
 import InputIngredients from "../InputIngredients/InputIngredients";

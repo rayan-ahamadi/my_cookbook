@@ -42,8 +42,8 @@ function Header() {
         </ul>
       </nav>
       <section className="user-options">
-        <button>Se connecter</button>
-        <button>S'inscrire</button>
+        <button><Link to="/login">Se connecter</Link></button>
+        <button><Link to="/register">S'inscrire</Link></button>
       </section>
     </header>
   );

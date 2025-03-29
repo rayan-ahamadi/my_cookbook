@@ -3,10 +3,22 @@ import RecipeForm from './components/RecipeForm/RecipeForm'; // Sous-page de Man
 import Header from '../../../components/Header/Header';
 import PrivateNavbar from '../../../components/PrivateNavbar/PrivateNavbar';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import './ManageRecipes.css';
  
 
 function ManageRecipes() {
+  const user = useSelector(state => state.user.user);
+  const navigate = useNavigate();
+  // Vérification de l'authentification de l'utilisateur
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
   return (
     <>
     <Header />

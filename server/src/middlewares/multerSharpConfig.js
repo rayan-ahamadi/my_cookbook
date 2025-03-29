@@ -24,11 +24,13 @@ const processImage = (size, folder) => async (req, res, next) => {
   const filename = `${Date.now()}${path.extname(req.file.originalname)}`;
   
   try {
+    const dimensions = folder === "recipe" ? { width: size * 1.5, height: size } : { width: size, height: size };
+
     await sharp(req.file.buffer)  // Récupère l'image stockée en mémoire via son buffer
-      .resize(size, size)
+      .resize(dimensions.width, dimensions.height)
       .toFormat("webp")
       .webp({ quality: 80 })
-      .toFile(path.join(__dirname, `../../uploads/${folder}/`, filename));
+      .toFile(path.join(__dirname, `../uploads/image/${folder}/`, filename));
     
     req.file.filename = filename;
     next();

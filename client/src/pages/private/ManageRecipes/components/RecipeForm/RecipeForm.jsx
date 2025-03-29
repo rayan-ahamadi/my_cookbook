@@ -1,17 +1,28 @@
 import useForm from "../../../../../hooks/useForm"
 import {useDispatch,useSelector} from "react-redux"
-import {createRecipe} from "../../../../../redux/actions/recipeActions"
+import {createRecipe, modifyRecipe} from "../../../../../redux/actions/recipeActions"
 import TextEditor from "../TextEditor/TextEditor"
 import { TagsInput } from "react-tag-input-component";
 import InputIngredients from "../InputIngredients/InputIngredients";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "./RecipeForm.css"
+import { use } from "react";
 
 
 function RecipeForm() {
     const {id} = useParams();
     const recipes = useSelector(state => state.recipe.recipes);
+    const user = useSelector(state => state.user.user);
     let initialState = null;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user]);
+    
 
     if (!id) {
         initialState = {
@@ -19,12 +30,12 @@ function RecipeForm() {
             description: "",
             ingredients: [],
             instructions: "",
-            image: "",
+            recipeImage: null,
             season: "",
             difficulty: "", 
             duration: 0,
-            author: "67dfe25daa004facf9f5593f", // en attendant auth
-            authorName: "rayanadmin", // en attendant auth
+            author: user._id,
+            authorName: user.username,
             tags: [],
             slug: ""
         }
@@ -51,6 +62,7 @@ function RecipeForm() {
         } else {
             dispatch(createRecipe(formData));
         }
+        navigate('/dashboard/my-recipes');
     }
 
     const {formData,handleInputChange,handleSubmit} = useForm(initialState,handleFormSubmit)
@@ -84,8 +96,7 @@ function RecipeForm() {
                 <input
                     type="file"
                     id="image"
-                    name="image"
-                    value={formData.image}
+                    name="recipeImage"
                     onChange={handleInputChange}
                 />
             </div>

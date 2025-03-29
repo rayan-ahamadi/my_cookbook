@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import logo from '../../../assets/images/icon.png';
 import './Auth.css';
 
-const Auth = () => {
+const Auth = () => { 
 
   return (
     <div className="auth-container">

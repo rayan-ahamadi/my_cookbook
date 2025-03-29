@@ -14,7 +14,7 @@ const Register = () => {
     password: '',
     role: '',
     confirmPassword: '',
-    avatar: '',
+    userAvatar: null,
   }
   const error = useSelector(state => state.user.error);
   const dispatch = useDispatch();
@@ -106,15 +106,15 @@ const Register = () => {
           <h2>Définissez votre photo de profil</h2>
           {formData.avatar && (
             <div className="avatar-preview">
-              <img src={URL.createObjectURL(formData.avatar)} alt="Avatar Preview" className="avatar-preview" />
+              <img src={URL.createObjectURL(formData.userAvatar)} alt="Avatar Preview" className="avatar-preview" />
             </div>
           ) || (
             <div className="avatar-preview">
-              <img src="http://localhost:5000/images/avatar/default.png'" alt="Avatar Preview" className="avatar-preview" />
+              <img src="http://localhost:5000/images/avatar/default.jpg'" alt="Avatar Preview" className="avatar-preview" />
             </div>
           )}
           <div className="form-group">
-            <input type="file" name="avatar" onChange={handleInputChange} />
+            <input type="file" name="userAvatar" onChange={handleInputChange} />
           </div>
           <input type="submit" className="register-button" value="S'inscrire" />
         </div>

@@ -108,11 +108,11 @@ Router.get('/search/:search', searchRecipes);
  *    tags: [Recipes (routes publiques)]
  *    parameters:
  *      - in: path
- *      name: season
- *      required: true
- *      schema:
- *        type: string
- *        description: Nom de la saison
+ *        name: season
+ *        required: true
+ *        schema:
+ *          type: string
+ *          description: Nom de la saison
  *    responses:
  *      200:
  *        description: Liste des recettes par saison

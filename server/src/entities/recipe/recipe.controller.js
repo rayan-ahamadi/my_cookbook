@@ -72,9 +72,9 @@ const addRecipe = async (req, res, next) => {
     const recipe = new Recipe(req.body);
 
     if(req.file){
-      recipe.image = "recipe/" + req.file.filename;
+      recipe.image = req.file.filename;
     } else {
-      recipe.image = 'recipe/default.jpg';
+      recipe.image = 'default.jpg';
     }
 
 
@@ -91,11 +91,11 @@ const updateRecipe = async (req, res, next) => {
     await checkAuthor(req, res, next);
     const { id } = req.params;
     // Supprimer et Modifier l'image de la recette
-    deleteRecipeImage(id);
+    await deleteRecipeImage(id);
     if(req.file){
-      req.body.image = "recipe/" + req.file.filename;
+      req.body.image = req.file.filename;
     } else {
-      req.body.image = 'recipe/default.jpg';
+      req.body.image = 'default.jpg';
     }
     const recipe = await Recipe.findByIdAndUpdate(id, req.body, { new: true });
     res.status(200).send({recipe});
@@ -110,8 +110,8 @@ const deleteRecipe = async (req, res, next) => {
     // l'admin peut supprimer une recette pour n'importe qui mais un auteur ne peut supprimer une recette que pour lui
     await checkAuthor(req, res, next);
     const { id } = req.params;
-    // Supprimer l'image de la recette
-    deleteRecipeImage(id);
+    // Supprimer l'image de la rece
+    await deleteRecipeImage(id);
 
     await Recipe.findByIdAndDelete(id);
     res.status(204).send({message: 'Recipe deleted'});

@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/images/icon.png";
@@ -6,6 +7,7 @@ import Searchbar from "../Searchbar/Searchbar";
 
 function Header() {
   const [scroll, setScroll] = useState(false);
+  const user = useSelector(state => state.user.user)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +44,19 @@ function Header() {
         </ul>
       </nav>
       <section className="user-options">
-        <button><Link to="/login">Se connecter</Link></button>
-        <button><Link to="/register">S'inscrire</Link></button>
+        {!user && (
+          <>
+          <button><Link to="/login">Se connecter</Link></button>
+          <button><Link to="/register">S'inscrire</Link></button>
+          </>)
+          || 
+          (<Link to="./dashboard/my-recipes">
+            <button className="user-button">
+              <img src={"http://localhost:5000" + '/images/avatar/' + user.avatar} alt="Photo de profil" />
+              <span>{user.username}</span>
+            </button>
+          </Link>)
+        }
       </section>
     </header>
   );

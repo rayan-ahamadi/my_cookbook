@@ -11,13 +11,20 @@ const register = async (req,res,next) => {
   try {
 
     // si création d'un nouveau admin, vérifie si la requête est bien faite par un admin
-    // if (req.body.role === 'admin') {
-    //   const role = await checkRole(req,res,next);
-    //   if (role !== 'admin') {
-    //     res.status(403).send({ message: 'Forbidden' });
-    //     return;
-    //   }
-    // }
+    if (req.body.role === 'admin') {
+      const role = await checkRole(req,res,next);
+      if (role !== 'admin') {
+        res.status(403).send({ message: 'Forbidden' });
+        return;
+      }
+    }
+
+    if (!req.file) {
+      req.body.avatar = 'default.jpg';
+    }
+    else {
+      req.body.avatar = req.file.filename;
+    }
 
     const user = new User(req.body);
 
@@ -38,11 +45,11 @@ const register = async (req,res,next) => {
     res.cookie('jwt', token, {
        httpOnly: true, 
        sameSite: 'none', 
-       secure: false });
+       secure: true });
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true, 
         sameSite: 'none', 
-        secure: false });
+        secure: true });
   
 
     res.status(201).send({ user, token });
@@ -72,11 +79,11 @@ const login = async (req,res,next) => {
     res.cookie('jwt', token, {
       httpOnly: true, 
       sameSite: 'none', 
-      secure: false });
+      secure: true });
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true, 
       sameSite: 'none', 
-      secure: false });
+      secure: true });
 
 
     res.status(200).send({ user, token });
@@ -137,11 +144,11 @@ const updateUser = async (req,res,next) => {
     }
 
     // Supprimer et modifier l'image de l'utilisateur
-    deleteAvatar(req.params.id);
+    await deleteAvatar(req.params.id);
     if(req.file){
-      req.body.avatar = "avatar/" + req.file.filename;
+      req.body.avatar = req.file.filename;
     } else {
-      req.body.avatar = 'avatar/default.jpg';
+      req.body.avatar = 'default.jpg';
     }
 
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -162,7 +169,7 @@ const deleteUser = async (req,res,next) => {
       return;
     }
     // Supprimer l'image de l'utilisateur
-    deleteAvatar(req.params.id);
+    await deleteAvatar(req.params.id);
 
     const user = await User.findByIdAndDelete(req.params.id);
     res.status(200).send({user});

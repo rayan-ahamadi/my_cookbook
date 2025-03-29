@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useForm from '../../../../../hooks/useForm'
 import { loginUser } from '../../../../../redux/actions/userActions';
+import { useEffect } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
+import { use } from 'react';
 
 const Login = () => {
   const initialState = {
@@ -9,13 +12,29 @@ const Login = () => {
     password: '',
   }
   const error = useSelector(state => state.user.error);
+  const user = useSelector(state => state.user.user);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault;
     dispatch(loginUser(formData));
+
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      navigate('../');
+    }
+  }
+  , [user, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
 
 
   const {formData, handleInputChange, handleSubmit} = useForm(initialState, handleFormSubmit);

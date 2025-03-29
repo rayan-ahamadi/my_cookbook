@@ -6,7 +6,11 @@ const login = async (formData) => {
 };
 
 const register = async (formData) => {
-  const response = await api.post('/user/register', formData);
+  const response = await api.post('/user/register', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response.data;
 }
 

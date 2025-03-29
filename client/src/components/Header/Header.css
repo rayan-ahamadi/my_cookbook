@@ -20,8 +20,12 @@ header:not(.scrolled) svg {
   color: var(--second-main-color);
 }
 
+header:not(.scrolled) button a {
+  color: var(--secondary-light-color);
+}
+
+
 header:not(.scrolled) button {
-  color: black;
   background-color: var(--main-color);
 }
 
@@ -85,4 +89,36 @@ li a:hover {
   background-color: var(--main-color);
   transition: all ease-in 0.2s;
   transform: translateY(2px);
+}
+
+.user-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--secondary-color);
+  color: var(--secondary-light-color);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: all ease-in 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.user-button img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-button span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.user-button:hover {
+  background-color: var(--main-color);
+  transform: translateY(2px);
+  transition: all ease-in 0.2s;
 }

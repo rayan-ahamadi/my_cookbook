@@ -15,7 +15,16 @@ const useForm = (initialState = {}, onSubmit) => {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      onSubmit?.(formData); // Appelle la fonction onSubmit si elle est définie
+
+      const formDataToSend = new FormData();
+
+      // Remplir le FormData avec les valeurs du state
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
+      });
+
+
+      onSubmit?.(formDataToSend); // Appelle la fonction onSubmit si elle est définie
       setFormData(initialState); // Réinitialise le formulaire
   }
 

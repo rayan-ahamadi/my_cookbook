@@ -37,7 +37,7 @@ const recipeSlice = createSlice({
       state.loading = true;
     })
     .addCase(fetchRecipes.fulfilled, (state, action) => {
-      state.recipes = action.payload.recipes;
+      state.recipes = [...action.payload.recipes];
       state.loading = false;
     })
     .addCase(fetchRecipes.rejected, (state) => {

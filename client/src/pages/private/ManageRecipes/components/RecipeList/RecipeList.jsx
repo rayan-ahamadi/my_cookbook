@@ -17,6 +17,7 @@ function RecipeList() {
         if (confirm("Voulez vous vraiment supprimer cette recette ?")){
             dispatch(removeRecipe(id));
         }
+        setTimeout(() => dispatch(fetchRecipes()), 0);
     }
 
 

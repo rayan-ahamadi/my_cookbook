@@ -16,7 +16,6 @@ function Carousel ({ season }) {
   const imgsSrc = "http://localhost:5000" + '/images/recipe/';
 
   useEffect(() => {
-    console.log(season);
     dispatch(fetchRecipeBySeason(season));
   }, [dispatch,season]);
 
@@ -87,7 +86,7 @@ function Carousel ({ season }) {
         <FontAwesomeIcon icon={faChevronLeft} />
       </span>  
       <div className="carousel-list" ref={carouselList}>
-        {recipe.map((recipe) => (
+        {recipe && recipe.map((recipe) => (
         <div key={recipe._id} className="recipe-card" style={{ backgroundImage: `url(${imgsSrc + recipe.image})` }}>
           <div className="recipe-card-content">
             <h3>{recipe.title}</h3>

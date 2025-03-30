@@ -21,7 +21,7 @@ section.hero-section::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.185);
   z-index: 1;
 }
 
@@ -30,7 +30,7 @@ section.hero-section::before {
   margin: auto;
   position: relative;
   z-index: 2;
-  margin-top: 293px !important;
+  margin-top: 30% !important;
 }
 
 .hero-text {

@@ -1,0 +1,104 @@
+/* Centrer l'article et styliser la page de recette */
+main.recipe-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 6.3%;
+}
+
+/* Titre stylisé */
+.recipe-page h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Image rectangulaire et centrée */
+.recipe-page img {
+    display: block;
+    max-width: 100%;
+    height: 300px; /* Hauteur fixe pour un format rectangulaire */
+    object-fit: cover; /* S'assure que l'image garde de bonnes proportions */
+    border-radius: 8px;
+    margin: 0 auto 20px;
+}
+
+/* Description stylisée */
+.recipe-page p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Liste des ingrédients */
+.recipe-page ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  
+ .recipe-page li {
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .ingredient-quantity {
+    font-weight: bold;
+  }
+  
+  .ingredient-unit {
+    font-style: italic;
+  }
+  
+  .ingredient-name {
+    color: #333;
+  }
+  
+  .ingredient-notes {
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+
+/* Instructions stylisées */
+.recipe-page div {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-left: 5px solid #ff7f50;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.recipe-page div.form-group {
+    border: none;
+}
+
+/* Styles pour les commentaires */
+.comments {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 2px solid #ddd;
+}
+
+@media (max-width: 768px) {
+    .recipe-page {
+        max-width: 90%;
+    }
+
+    .recipe-page h2 {
+        font-size: 1.8rem;
+    }
+}

@@ -22,10 +22,14 @@ function RecipeList() {
 
 
     return <section className="recipe-list">
-        <button>
-            <Link to={{pathname:"./new"}}>Ajouter une recette</Link>
-        </button>
-        <h2>Liste de vos recettes</h2>
+        
+        <h2 style={{textAlign:"center"}}>
+            Liste de vos recettes
+            &nbsp;
+            <button style={{display:"inline"}}>
+                <Link to={{pathname:"./new"}}> Ajouter une recette</Link>
+            </button>
+        </h2>
         <ul>
             {recipes && recipes.length > 0 ? recipes.map(recipe => 
             <li key={recipe._id}>

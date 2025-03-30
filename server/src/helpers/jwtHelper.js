@@ -10,29 +10,33 @@ function generateRefreshToken(payload) {
 }
 
 // Fonction pour les demandes de rafraîchissement de token venant du client
-function refreshToken(){
+function refreshToken(req, res) {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
     return res.status(401).json({ message: 'Refresh Token required' });
   }
 
   try {
-    const decoded = jwtHelper.verifyToken(refreshToken);
-    const newToken = jwtHelper.generateToken({ id: decoded.id, role: decoded.role });
-    const newRefreshToken = jwtHelper.generateRefreshToken({ id: decoded.id, role: decoded.role });
+    const decoded = verifyToken(refreshToken);
+    const newToken = generateToken({ id: decoded.id, role: decoded.role });
+    const newRefreshToken = generateRefreshToken({ id: decoded.id, role: decoded.role });
+
     res.cookie('jwt', newToken, {
-      httpOnly: true, 
-      sameSite: 'none', 
-      secure: false });
+      httpOnly: true,
+      sameSite: "secure",
+      maxAge: 15 * 60 * 1000 // 15 minutes
+    });
+
     res.cookie('refreshToken', newRefreshToken, {
-      httpOnly: true, 
-      sameSite: 'none', 
-      secure: false }); 
-    return next();
+      httpOnly: true,
+      sameSite: 'secure',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
+    });
+
+    return res.json({ message: 'Token refreshed' });
   } catch (error) {
     return res.status(403).json({ message: 'Invalid token' });
   }
-
 }
 
 // Fonction pour vérifier un token

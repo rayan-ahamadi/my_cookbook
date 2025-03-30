@@ -26,14 +26,23 @@
   transition: all 0.3s;
 }
 
-.private-navbar a {
+/* .private-navbar button {
+  background-color: transparent;
+  border: none;
+
+} */
+
+.private-navbar a, 
+.private-navbar span {
   color: var(--secondary-light-color);
   text-decoration: none;
   display: block;
   width: 100%;
+  cursor: pointer;
 }
 
-.private-navbar a:hover {
+.private-navbar a:hover,
+.private-navbar span:hover {
   color: var(--secondary-light-color);
   text-decoration: none;
 }

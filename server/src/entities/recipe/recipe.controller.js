@@ -54,9 +54,12 @@ const searchRecipes = async (req,res,next) => {
 
 const getRecipe = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const recipe = await Recipe.findById(id);
-    res.status(200).send({recipe});
+    const { slug } = req.params;
+    const recipe = await Recipe.findOne({ slug: slug });
+    if (!recipe) {
+      return res.status(404).send({ message: "Recipe not found" });
+    }
+    res.status(200).send({ recipe });
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchCommentByRecipe} from '../actions/commentActions';
+import {fetchCommentByRecipe, addComment} from '../actions/commentActions';
 
 
 
@@ -9,6 +9,7 @@ const commentSlice = createSlice({
   initialState: {
     comments: [],
     loading: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -22,7 +23,19 @@ const commentSlice = createSlice({
     })
     .addCase(fetchCommentByRecipe.rejected, (state) => {
       state.loading = false;
+      state.error = action.error.message;
     })
+    .addCase(addComment.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(addComment.fulfilled, (state, action) => {
+      state.comments.push(action.payload);
+      state.loading = false;
+    })
+    .addCase(addComment.rejected, (state,action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
   }
 });
 

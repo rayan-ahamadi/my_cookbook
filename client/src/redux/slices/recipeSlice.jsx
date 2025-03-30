@@ -1,11 +1,20 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {fetchRecipeBySeason, fetchRecipeBySearch, fetchRecipes, createRecipe, removeRecipe, modifyRecipe} from '../actions/recipeActions';
+import {createSlice, current} from '@reduxjs/toolkit';
+import {
+  fetchRecipeBySeason, 
+  fetchRecipeBySearch, 
+  fetchRecipes, 
+  createRecipe, 
+  removeRecipe, 
+  modifyRecipe,
+  fetchRecipeSlug
+} from '../actions/recipeActions';
 
 // Slice
 const recipeSlice = createSlice({
   name: 'recipe',
   initialState: {
     recipes: [],
+    currentRecipe: null,
     searchSuggestions: [],
     loading: false,
     searchLoadin: false
@@ -70,6 +79,16 @@ const recipeSlice = createSlice({
     .addCase(modifyRecipe.rejected, (state) => {
       state.loading = false;
     })
+    .addCase(fetchRecipeSlug.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(fetchRecipeSlug.fulfilled, (state, action) => {
+      state.currentRecipe = action.payload.recipe;
+      state.loading = false;
+    })
+    .addCase(fetchRecipeSlug.rejected, (state) => {
+      state.loading = false;
+    });
   }
 });
 

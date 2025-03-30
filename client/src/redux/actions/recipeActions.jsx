@@ -1,4 +1,4 @@
-import {getRecipeBySeason, getRecipeBySearch, getRecipes, addRecipe, deleteRecipe, updateRecipe} from '../../services/api/entities/recipe/fetchRecipe';
+import {getRecipeBySeason, getRecipeBySearch, getRecipes, addRecipe, deleteRecipe, updateRecipe, getRecipeBySlug} from '../../services/api/entities/recipe/fetchRecipe';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 // Fonction Asynchrones (mettre les actions dans un dossier actions)
@@ -25,6 +25,14 @@ export const fetchRecipes = createAsyncThunk(
     return response;
   }
 );
+
+export const fetchRecipeSlug = createAsyncThunk(
+  'recipe/getById', 
+  async (slug) => {
+    const response = await getRecipeBySlug(slug);
+    return response;
+  }
+)
 
 export const createRecipe = createAsyncThunk(
   'recipe/addRecipe',

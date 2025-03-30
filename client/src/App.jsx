@@ -4,18 +4,18 @@ import Register from './pages/public/Auth/components/Register/Register'
 import Login from './pages/public/Auth/components/Login/Login'
 import Auth from './pages/public/Auth/Auth'
 import ManageRecipes from './pages/private/ManageRecipes/ManageRecipes'
-import { useDispatch,useSelector } from 'react-redux'
-import { getUser, logout } from "./redux/slices/userSlice";
+import RecipePage from './pages/public/RecipePage/RecipePage'
+import { useDispatch } from 'react-redux'
+import { refreshUser } from './redux/actions/userActions'
 import { useEffect } from 'react'
 
 function App() {
   const dispatch = useDispatch();
-
-  // Si l'utilisateur est connecté, on va chercher ses données
-  const user = useSelector(state => state.user.user);
   useEffect(() => {
+    const user = localStorage.getItem('user');
     if (user) {
-      dispatch(getUser());
+      // Si l'utilisateur est connecté, on vérifie son token et on le rafraichit
+      dispatch(refreshUser());
     }
   }
   , [dispatch]);
@@ -29,6 +29,8 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/recipe/:slug" element={<RecipePage />} />
+        <Route path="/recipe" element={<RecipePage />} />
 
         {/* Routes Privées */}  
         <Route path="/dashboard/my-recipes/*" element={<ManageRecipes />} />

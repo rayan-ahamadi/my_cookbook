@@ -5,8 +5,8 @@ const getRecipeBySeason = async (season) => {
   return response.data;
 };
 
-const getRecipeById = async (id) => {
-  const response = await api.get('/recipe/' + id);
+const getRecipeBySlug = async (slug) => {
+  const response = await api.get('/recipe/' + slug);
   return response.data;
 };
 
@@ -45,7 +45,7 @@ const deleteRecipe = async (id) => {
 
 export { 
   getRecipeBySeason, 
-  getRecipeById, 
+  getRecipeBySlug, 
   getRecipeBySearch,
   getRecipes, // à protéger quand y'aura l'authentification
   addRecipe,// à protéger quand y'aura l'authentification

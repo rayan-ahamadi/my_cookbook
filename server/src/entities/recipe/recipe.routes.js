@@ -24,22 +24,22 @@ Router.get('/', getRecipes);
 
 /**
  * @swagger
- * /recipe/{id}:
+ * /recipe/{slug}:
  *   get:
- *     summary: Récupérer une recette par ID
+ *     summary: Récupérer une recette par son slug
  *     tags: [Recipes (routes publiques)]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: slug
  *         required: true
  *         schema:
  *           type: string
- *         description: ID de la recette
+ *         description: slug de la recette
  *     responses:
  *       200:
  *         description: Détails de la recette
  */
-Router.get('/:id', getRecipe);
+Router.get('/:slug', getRecipe);
 
 /**
  * @swagger

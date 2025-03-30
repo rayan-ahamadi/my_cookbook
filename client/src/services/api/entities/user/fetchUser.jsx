@@ -14,9 +14,14 @@ const register = async (formData) => {
   return response.data;
 }
 
+const refreshToken = async () => {
+  const response = await api.post('/refresh');
+  return response.data;
+}
+
 const getUser = async (id) => {
   const response = await api.get('/user/' + id);
   return response.data;
 }
 
-export { login, register, getUser };
+export { login, register, getUser, refreshToken };

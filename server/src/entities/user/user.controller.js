@@ -1,4 +1,4 @@
-const { generateToken, generateRefreshToken ,decodeToken } = require("../../helpers/jwtHelper");
+const { generateToken, generateRefreshToken ,decodeToken,verifyToken } = require("../../helpers/jwtHelper");
 const { hashPassword, comparePasswords } = require("../../helpers/bcryptHelper");
 const { checkRole } = require("../../helpers/userHelper");
 const { deleteAvatar } = require("../../helpers/imageHelpers");
@@ -92,6 +92,7 @@ const login = async (req,res,next) => {
     next(error);
   }
 }
+
 
 // Pour les routes protégées
 

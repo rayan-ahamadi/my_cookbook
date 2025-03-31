@@ -1,4 +1,4 @@
-import {getCommentByRecipe, postComment} from '../../services/api/entities/comment/fetchComment';
+import {getCommentByRecipe, postComment, deleteComment} from '../../services/api/entities/comment/fetchComment';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 // Fonction Asynchrones
@@ -12,8 +12,16 @@ export const fetchCommentByRecipe = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'comment/addComment', 
-  async (recipeId) => {
-    const response = await postComment(recipeId);
+  async ({ recipeId, content }) => {
+    const response = await postComment(recipeId, content);
+    return response;
+  }
+);
+
+export const deleteUserComment = createAsyncThunk(
+  'comment/deleteComment',
+  async (commentId) => {
+    const response = await deleteComment(commentId);
     return response;
   }
 );

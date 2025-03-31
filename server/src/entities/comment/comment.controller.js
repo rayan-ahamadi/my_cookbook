@@ -2,7 +2,7 @@ const {decodeToken} = require('../../helpers/jwtHelper');
 const {checkRole} = require('../../helpers/userHelper');
 const Comment = require('./comment.model');
 const Recipe = require('../recipe/recipe.model');
-
+const User = require('../user/user.model');
 
 const getAllComment = async (req, res,next) => {
   try {
@@ -40,10 +40,15 @@ const getCommentByRecipe = async (req, res,next) => {
 const postComment =  async (req, res,next) => {
   try {
     // Créer le commentaire
-    const user = decodeToken(req.cookies.jwt);
+    const userId = await decodeToken(req.cookies.jwt);
+    const user = await User.findById(userId.id);
+
     const comment = new Comment({
       content: req.body.content,
-      author: user.id,
+      author: user._id,
+      recipeId: req.params.recipeId,
+      authorName: user.username,
+      authorAvatar: user.avatar,
     });
     await comment.save();
     // Ajouter le commentaire à la recette

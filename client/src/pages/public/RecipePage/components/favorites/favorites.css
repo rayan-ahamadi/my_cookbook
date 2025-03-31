@@ -1,0 +1,46 @@
+div.favorites-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    background-color: transparent !important; /* Remove background color */
+    border: 0 !important; /* Remove border */
+}
+
+div.favorites-container label {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ffcc00; /* Gold color for the star icon */
+    border: 0;
+    height: 30px;
+    transition: transform 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.favorites-container label:hover {
+    transform: scale(1.2);
+    color: #ffaa00; /* Slightly darker gold on hover */
+}
+
+div.favorites-container input[type="checkbox"] {
+    display: none; /* Hide the checkbox */
+}
+
+.add-favorite {
+    color: #ccc; /* Gray color for inactive state */
+}
+
+.add-favorite:hover {
+    color: #ffcc00; /* Gold color on hover */
+}
+
+.remove-favorite {
+    color: #ffcc00; /* Gold color for active state */
+}
+
+.remove-favorite:hover {
+    color: #ffaa00; /* Slightly darker gold on hover */
+}

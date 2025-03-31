@@ -20,8 +20,19 @@ const refreshToken = async () => {
 }
 
 const getUser = async (id) => {
-  const response = await api.get('/user/' + id);
+  const response = await api.get('/protected/user/' + id);
   return response.data;
 }
 
-export { login, register, getUser, refreshToken };
+const addRecipeToFavorite = async (recipeId) => {
+  const response = await api.post('/protected/user/fav/' + recipeId);
+  return response.data;
+}
+
+const removeRecipeToFavorite = async (recipeId) => {
+  const response = await api.delete('/protected/user/fav/' + recipeId);
+  return response.data;
+}
+
+
+export { login, register, getUser, refreshToken, addRecipeToFavorite,removeRecipeToFavorite };

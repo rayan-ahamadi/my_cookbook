@@ -6,6 +6,7 @@ import { fetchRecipeSlug } from "../../../redux/actions/recipeActions";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import Comments from "./components/comments/comments";
+import Favorites from "./components/favorites/favorites";
 import "./RecipePage.css";
 
 
@@ -32,19 +33,25 @@ function RecipePage() {
                 {error && <p>Erreur : {error}</p>}
                 {recipe && (
                 <>
+                    <Favorites recipeId={recipe._id} />
                     <h2>{recipe.title}</h2>
                     <img src={"http://localhost:5000/images/recipe/" + recipe.image} alt={recipe.title} />
+                    <p style={{fontStyle: "italic"}}>Par : {recipe.authorName}</p>
                     <p>{recipe.description}</p>
-                    <ul>
-                        {recipe.ingredients.map((ingredient, index) => (
-                            <li key={index}>
-                                <span className="ingredient-quantity">{ingredient.quantity}</span>
-                                <span className="ingredient-unit">{ingredient.unit} </span>
-                                <span className="ingredient-name">{ingredient.name}</span>
-                                {ingredient.notes && (<span className="ingredient-notes">`{ingredient.notes}`</span>) }
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="ingredients-container">
+                        <h3>Liste des ingrédients :</h3>
+                        <ul>
+                            {recipe.ingredients.map((ingredient, index) => (
+                                <li key={index}>
+                                    <span className="ingredient-quantity">{ingredient.quantity}</span>
+                                    <span className="ingredient-unit">{ingredient.unit} </span>
+                                    <span className="ingredient-name">{ingredient.name}</span>
+                                    {ingredient.notes && (<span className="ingredient-notes">`{ingredient.notes}`</span>) }
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    
                     <div dangerouslySetInnerHTML={{ __html: recipe.instructions }}></div>
                     <Comments recipeId={recipe._id} />
                 </>

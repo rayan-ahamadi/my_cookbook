@@ -23,19 +23,19 @@ function refreshToken(req, res) {
 
     res.cookie('jwt', newToken, {
       httpOnly: true,
-      sameSite: "secure",
-      maxAge: 15 * 60 * 1000 // 15 minutes
+      sameSite: "none",
+      secure: true 
     });
 
     res.cookie('refreshToken', newRefreshToken, {
       httpOnly: true,
-      sameSite: 'secure',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
+      sameSite: 'none',
+      secure: true 
     });
 
     return res.json({ message: 'Token refreshed' });
   } catch (error) {
-    return res.status(403).json({ message: 'Invalid token' });
+    return res.status(403).json({ message: 'Invalid token', error: error.message });
   }
 }
 

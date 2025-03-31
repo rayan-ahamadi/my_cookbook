@@ -30,7 +30,7 @@ section.hero-section::before {
   margin: auto;
   position: relative;
   z-index: 2;
-  margin-top: 30% !important;
+  margin-top: 650px !important;
 }
 
 .hero-text {

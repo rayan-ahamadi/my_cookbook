@@ -47,9 +47,15 @@ function Searchbar() {
       <div className="input-container">
         <input type="search" className='searchbar' placeholder="Rechercher une recette" ref={inputSearch} onChange={(e) => setSearch(e.target.value)} />
       </div>
-      <span className='search-icon' >
+      { search.length < 4 && (
+        <span className='search-icon' >
         <FontAwesomeIcon icon={faMagnifyingGlass}/>
-      </span>
+      </span> 
+      ) || 
+      <Link to={`/explore/${search}`} className='search-icon'>
+        <span><FontAwesomeIcon icon={faMagnifyingGlass}/></span>
+      </Link>
+      }
       <nav className='search-suggestions' ref={suggestionsContainer}>
         <ul>
           {searchSuggestions && searchSuggestions.length > 0 ? (

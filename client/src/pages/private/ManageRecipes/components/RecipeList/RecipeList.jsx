@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipes, removeRecipe} from "../../../../../redux/actions/recipeActions";
+import {removeRecipe, fetchRecipeFromUser} from "../../../../../redux/actions/recipeActions";
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
 import './RecipeList.css';
@@ -10,14 +10,14 @@ function RecipeList() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchRecipes());
+        dispatch(fetchRecipeFromUser());
     }, [dispatch,recipes]);
 
     const handleDelete = (id) => {
         if (confirm("Voulez vous vraiment supprimer cette recette ?")){
             dispatch(removeRecipe(id));
         }
-        setTimeout(() => dispatch(fetchRecipes()), 0);
+        setTimeout(() => dispatch(fetchRecipeFromUser), 0);
     }
 
 

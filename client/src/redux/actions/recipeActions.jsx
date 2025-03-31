@@ -1,7 +1,19 @@
-import {getRecipeBySeason, getRecipeBySearch, getRecipes, addRecipe, deleteRecipe, updateRecipe, getRecipeBySlug} from '../../services/api/entities/recipe/fetchRecipe';
+import {
+  getRecipeBySeason, 
+  getRecipeBySearch, 
+  getRecipes, 
+  addRecipe, 
+  deleteRecipe, 
+  updateRecipe, 
+  getRecipeBySlug, 
+  recipeFromUser,
+  getRecipePaginate,
+  getFavoriteRecipes,
+  searchRecipesPaginate
+} from '../../services/api/entities/recipe/fetchRecipe';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-// Fonction Asynchrones (mettre les actions dans un dossier actions)
+
 export const fetchRecipeBySeason = createAsyncThunk(
   'recipe/fetchBySeason',
   async (season) => {
@@ -54,6 +66,38 @@ export const modifyRecipe = createAsyncThunk(
   'recipe/updateRecipe',
   async (formData) => {
     const response = await updateRecipe(formData);
+    return response;
+  }
+)
+
+export const fetchRecipeFromUser = createAsyncThunk(
+  'recipe/fetchFromUser',
+  async (userId) => {
+    const response = await recipeFromUser(userId);
+    return response;
+  }
+)
+
+export const fetchRecipePaginate = createAsyncThunk(
+  'recipe/fetchPaginate',
+  async (page) => {
+    const response = await getRecipePaginate(page);
+    return response;
+  }
+)
+
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipe/fetchFavorites',
+  async (userId, page) => {
+    const response = await getFavoriteRecipes(userId, page);
+    return response;
+  }
+)
+
+export const fetchSearchRecipesPaginate = createAsyncThunk(
+  'recipe/fetchSearchPaginate',
+  async ({search, page}) => {
+    const response = await searchRecipesPaginate(search, page);
     return response;
   }
 )

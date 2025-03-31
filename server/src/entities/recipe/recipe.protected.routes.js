@@ -7,6 +7,7 @@ const {
   updateRecipe, 
   deleteRecipe,
   getFavoriteRecipes,
+  getRecipesFromUser,
  } = require('./recipe.controller');
 
 
@@ -170,7 +171,42 @@ router.delete('/:id', deleteRecipe);
  * @swagger
  * /recipe/fav/{userId}:
  *   get:
- *     summary: Récupérer les recettes favorites d'un utilisateur
+ *     summary: Récupérer les recettes favorites d'un utilisateur (paginé)
+ *     tags: [Recipes (routes protégées)]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de l'utilisateur
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Numéro de la page
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Nombre de recettes par page
+ *     responses:
+ *       200:
+ *         description: Liste paginée des recettes favorites de l'utilisateur
+ *       404:
+ *         description: Aucune recette favorite trouvée
+ */
+router.get("/fav/:userId/:page", getFavoriteRecipes);
+
+/**
+ *  @swagger
+ * /recipe/user/{userId}:
+ *   get:
+ *     summary: Récupérer les recettes d'un utilisateur
  *     tags: [Recipes (routes protégées)]
  *     parameters:
  *       - in: path
@@ -181,11 +217,11 @@ router.delete('/:id', deleteRecipe);
  *         description: ID de l'utilisateur
  *     responses:
  *       200:
- *         description: Liste des recettes favorites de l'utilisateur
+ *         description: Liste des recettes de l'utilisateur
  *       404:
- *         description: Aucune recette favorite trouvée
+ *         description: Aucune recette trouvée
  */
-router.get("/fav/:userId", getFavoriteRecipes);
+router.get("/user/:userId", getRecipesFromUser);
 
 
 module.exports = router;

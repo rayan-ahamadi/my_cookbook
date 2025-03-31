@@ -36,7 +36,7 @@ function Header() {
             <Link to="/">Accueil</Link>
           </li>
           <li>
-            <Link to="/recipes">Recettes</Link>
+            <Link to="/explore">Recettes</Link>
           </li>
           <li>
             <Searchbar/>

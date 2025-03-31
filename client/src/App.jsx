@@ -5,6 +5,7 @@ import Login from './pages/public/Auth/components/Login/Login'
 import Auth from './pages/public/Auth/Auth'
 import ManageRecipes from './pages/private/ManageRecipes/ManageRecipes'
 import RecipePage from './pages/public/RecipePage/RecipePage'
+import ExploreRecipe from './pages/public/ExploreRecipe/ExploreRecipe'
 import { useDispatch } from 'react-redux'
 import { refreshUser } from './redux/actions/userActions'
 import { useEffect } from 'react'
@@ -31,6 +32,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/recipe/:slug" element={<RecipePage />} />
         <Route path="/recipe" element={<RecipePage />} />
+        <Route path="/explore" element={<ExploreRecipe />} />
+        <Route path="/explore/:search" element={<ExploreRecipe />} />
 
         {/* Routes Privées */}  
         <Route path="/dashboard/my-recipes/*" element={<ManageRecipes />} />

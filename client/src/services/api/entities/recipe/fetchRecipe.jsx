@@ -15,6 +15,11 @@ const getRecipeBySearch = async (search) => {
   return response.data;
 };
 
+const getRecipePaginate = async (page) => {
+  const response = await api.get('/recipe/paginate/' + page);
+  return response.data;
+};
+
 const getRecipes = async () => {
   const response = await api.get('/recipe');
   return response.data;
@@ -43,12 +48,31 @@ const deleteRecipe = async (id) => {
   return response.data;
 }
 
+const recipeFromUser = async (userId) => {
+  const response = await api.get('/protected/recipe/user/' + userId);
+  return response.data;
+}
+
+const getFavoriteRecipes = async (userId, page) => {
+  const response = await api.get('/protected/recipe/fav/' + userId + `/${page}`);
+  return response.data;
+}
+
+const searchRecipesPaginate = async (search, page) => {
+  const response = await api.get('/recipe/search/' + search + '/paginate/' + page);
+  return response.data;
+}
+
 export { 
   getRecipeBySeason, 
   getRecipeBySlug, 
   getRecipeBySearch,
-  getRecipes, // à protéger quand y'aura l'authentification
-  addRecipe,// à protéger quand y'aura l'authentification
-  updateRecipe, // à protéger quand y'aura l'authentification
-  deleteRecipe // à protéger quand y'aura l'authentification
+  getRecipes, 
+  addRecipe,
+  updateRecipe, 
+  deleteRecipe, 
+  recipeFromUser,
+  getRecipePaginate,
+  getFavoriteRecipes,
+  searchRecipesPaginate
 };

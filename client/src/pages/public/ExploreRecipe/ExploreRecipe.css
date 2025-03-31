@@ -1,0 +1,104 @@
+main.explore-recipe {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--light-color);
+    min-height: 100vh;
+    margin-top: 5.1%;
+}
+
+main.explore-recipe h2 {
+    color: var(--main-color);
+    margin-bottom: 1.5rem;
+}
+
+.recipe-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+div.recipe-card {
+    background-color: var(--secondary-light-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    padding-bottom: 1rem;
+    width: 50%;
+    justify-self: center;
+}
+
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.recipe-card h3 {
+    color: var(--second-main-color);
+    font-size: 1.4rem;
+    margin: 1rem 0;
+}
+
+.recipe-card p {
+    color: var(--main-color);
+    padding: 0 1rem;
+    font-size: 1rem;
+    min-height: 50px;
+}
+
+.recipe-card button {
+    background-color: var(--secondary-color);
+    color: var(--secondary-light-color);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.recipe-card button:hover {
+    background-color: var(--second-secondary-color);
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 2rem;
+}
+
+.pagination button {
+    background-color: var(--main-color);
+    color: var(--secondary-light-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.pagination button:disabled {
+    background-color: var(--second-main-color);
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: var(--second-main-color);
+}
+
+.pagination button:last-child {
+    background-color: var(--secondary-color);
+}
+
+.pagination button:last-child:hover {
+    background-color: var(--second-secondary-color);
+}

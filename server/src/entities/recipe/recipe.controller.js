@@ -31,7 +31,13 @@ const getRecipesPaginate = async (req,res,next) => {
   try {
     const { page } = req.params;
     const recipes = await Recipe.find().skip(parseInt(page) * 10).limit(10);
-    res.status(200).send({recipes});
+    const totalRecipes = await Recipe.countDocuments();
+    const totalPages = Math.ceil(totalRecipes / 10);
+    res.status(200).send({
+      recipes,
+      currentPage: parseInt(page),
+      totalPages
+    });
   }
   catch (error) {
     next(error);
@@ -47,6 +53,27 @@ const searchRecipes = async (req,res,next) => {
       $text: { $search: search }
     });
     res.status(200).send({ recipes });
+  } catch (error) {
+    next(error);
+  }
+}
+
+const searchRecipesPaginate = async (req,res,next) => {
+  try {
+    const search = escapeRegex(req.params.search);
+    const { page } = req.params;
+    const recipes = await Recipe.find({
+      $text: { $search: search }
+    }).skip(parseInt(page) * 10).limit(10);
+    const totalRecipes = await Recipe.countDocuments({
+      $text: { $search: search }
+    });
+    const totalPages = Math.ceil(totalRecipes / 10);
+    res.status(200).send({
+      recipes,
+      currentPage: parseInt(page),
+      totalPages: totalPages - parseInt(page) - 1
+    });
   } catch (error) {
     next(error);
   }
@@ -126,13 +153,41 @@ const deleteRecipe = async (req, res, next) => {
 const getFavoriteRecipes = async (req, res, next) => {
   try{
     const user = await User.findById(req.params.userId)
-    const favoritesId = user.favorites
 
-    const favorites = await Recipe.find({ _id: { $in: favoritesId } });
-    res.status(200).send({ favorites });
+    const favoritesId = user.favorites // liste d'id de recettes
+
+    const { page } = req.params;
+    const favorites = await Recipe.find({ _id: { $in: favoritesId } })
+                    .skip(parseInt(page) * 10)
+                    .limit(10);
+    const totalFavorites = await Recipe.countDocuments({ _id: { $in: favoritesId } });
+    const totalPages = Math.ceil(totalFavorites / 10);
+
+    res.status(200).send({
+      favorites,
+      currentPage: parseInt(page),
+      totalPages: totalPages - parseInt(page) - 1
+    });
 
     if (!favorites) {
       res.status(404).send({ message: "No favorite recipes found" });
+    }
+
+  }
+  catch(error){
+    next(error)
+  }
+}
+
+const getRecipesFromUser = async (req,res,next) => {
+  try{
+    const user = await User.findById(req.params.userId)
+
+    const userRecipes = await Recipe.find({ author: user._id });
+    res.status(200).send({ userRecipes });
+
+    if (!userRecipes) {
+      res.status(404).send({ message: "No recipes found" });
     }
 
   }
@@ -161,5 +216,7 @@ module.exports = {
   deleteRecipe,
   getFavoriteRecipes,
   searchRecipes,
-  getRecipesBySeason
+  getRecipesBySeason,
+  getRecipesFromUser,
+  searchRecipesPaginate,
 };

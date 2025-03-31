@@ -7,7 +7,8 @@ const {
   getRecipesWithLimit,
   getRecipesPaginate,
   searchRecipes,
-  getRecipesBySeason
+  getRecipesBySeason,
+  searchRecipesPaginate,
  } = require('./recipe.controller');
 
  /**
@@ -118,5 +119,31 @@ Router.get('/search/:search', searchRecipes);
  *        description: Liste des recettes par saison
  */
 Router.get('/season/:season', getRecipesBySeason);
+
+/**
+ * @swagger
+ * /recipe/search/paginate/{search}/{page}:
+ *   get:
+ *     summary: Rechercher des recettes par mot-clé avec pagination
+ *     tags: [Recipes (routes publiques)]
+ *     parameters:
+ *       - in: path
+ *         name: search
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Mot-clé de recherche
+ *       - in: path
+ *         name: page
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Numéro de la page
+ *     responses:
+ *       200:
+ *         description: Résultats de la recherche paginée
+ */
+Router.get('/search/paginate/:search/:page', searchRecipesPaginate);
+
 
 module.exports = Router;

@@ -26,7 +26,7 @@ function ExploreRecipe() {
 
     useEffect(() => {
         if (search) {
-            dispatch(fetchSearchRecipesPaginate(search, currentPage));
+            dispatch(fetchSearchRecipesPaginate({search, currentPage}));
         } else {
             dispatch(fetchRecipePaginate(currentPage));
         }

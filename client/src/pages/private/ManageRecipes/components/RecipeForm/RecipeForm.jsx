@@ -1,6 +1,6 @@
 import useForm from "../../../../../hooks/useForm"
 import {useDispatch,useSelector} from "react-redux"
-import {createRecipe, modifyRecipe} from "../../../../../redux/actions/recipeActions"
+import {createRecipe, modifyRecipe, fetchRecipeFromUser} from "../../../../../redux/actions/recipeActions"
 import TextEditor from "../TextEditor/TextEditor"
 import { TagsInput } from "react-tag-input-component";
 import InputIngredients from "../InputIngredients/InputIngredients";
@@ -58,11 +58,16 @@ function RecipeForm() {
         e.preventDefault;
         formData.slug = slugify(formData.title);
         if (id) {
-            dispatch(modifyRecipe(formData));
+            dispatch(modifyRecipe({formData, id: formData._id})).then(() => {
+                dispatch(fetchRecipeFromUser());
+                navigate('/dashboard/my-recipes');
+            });
         } else {
-            dispatch(createRecipe(formData));
+            dispatch(createRecipe(formData)).then(() => {
+                dispatch(fetchRecipeFromUser());
+                navigate('/dashboard/my-recipes');
+            });
         }
-        navigate('/dashboard/my-recipes');
     }
 
     const {formData,handleInputChange,handleSubmit} = useForm(initialState,handleFormSubmit)

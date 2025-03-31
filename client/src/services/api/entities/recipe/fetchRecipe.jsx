@@ -34,8 +34,8 @@ const addRecipe = async (recipe) => {
   return response.data;
 }
 
-const updateRecipe = async (recipe) => {
-  const response = await api.put('/protected/recipe', recipe, {
+const updateRecipe = async (recipe, id) => {
+  const response = await api.put('/protected/recipe/' + id , recipe, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

@@ -2,7 +2,6 @@ main.explore-recipe {
     text-align: center;
     padding: 2rem;
     background-color: var(--light-color);
-    min-height: 100vh;
     margin-top: 5.1%;
 }
 
@@ -12,8 +11,11 @@ main.explore-recipe h2 {
 }
 
 main.explore-recipe .recipe-card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 2rem;
     justify-content: center;
     padding: 2rem 0;

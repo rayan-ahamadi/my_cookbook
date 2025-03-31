@@ -64,8 +64,8 @@ export const removeRecipe = createAsyncThunk(
 
 export const modifyRecipe = createAsyncThunk(
   'recipe/updateRecipe',
-  async (formData) => {
-    const response = await updateRecipe(formData);
+  async ({ formData, id }) => {
+    const response = await updateRecipe(formData, id);
     return response;
   }
 )

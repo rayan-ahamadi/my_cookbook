@@ -7,17 +7,18 @@ import './RecipeList.css';
 
 function RecipeList() {
     const recipes = useSelector(state => state.recipe.recipes);
+    const user = useSelector(state => state.user.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchRecipeFromUser());
     }, [dispatch,recipes]);
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         if (confirm("Voulez vous vraiment supprimer cette recette ?")){
-            dispatch(removeRecipe(id));
-        }
-        setTimeout(() => dispatch(fetchRecipeFromUser), 0);
+           await dispatch(removeRecipe(id))
+           dispatch(fetchRecipeFromUser(user._id))
+        }    
     }
 
 

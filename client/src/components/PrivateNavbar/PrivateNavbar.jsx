@@ -20,9 +20,9 @@ function PrivateNavbar(){
     return(
         <nav className='private-navbar'>
             <ul>
-                <li><Link to="/dashboard">Dashboard</Link></li>
-                <li><Link to="/profile">Profil</Link></li>
-                <li><Link to="/my-recipes">Mes Recettes</Link></li>
+                <li><Link to="../dashboard">Dashboard</Link></li>
+                <li><Link to="../dashboard/profile">Profil</Link></li>
+                <li><Link to="../dashboard/my-recipes">Mes Recettes</Link></li>
                 <li><span onClick={handleLogout} >Déconnexion</span></li>
             </ul>
         </nav>

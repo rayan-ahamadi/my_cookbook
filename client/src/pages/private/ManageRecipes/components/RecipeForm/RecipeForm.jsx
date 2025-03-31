@@ -54,19 +54,17 @@ function RecipeForm() {
             .replace(/\-\-+/g, '-');        // Replace multiple - with single -
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault;
         formData.slug = slugify(formData.title);
         if (id) {
-            dispatch(modifyRecipe({formData, id: formData._id})).then(() => {
-                dispatch(fetchRecipeFromUser());
-                navigate('/dashboard/my-recipes');
-            });
+            await dispatch(modifyRecipe({formData, id: formData._id}))
+            await dispatch(fetchRecipeFromUser(user._id))
+            navigate('/dashboard/my-recipes');
         } else {
-            dispatch(createRecipe(formData)).then(() => {
-                dispatch(fetchRecipeFromUser());
-                navigate('/dashboard/my-recipes');
-            });
+            await dispatch(createRecipe(formData))
+            await dispatch(fetchRecipeFromUser(user._id));
+            navigate('/dashboard/my-recipes');
         }
     }
 

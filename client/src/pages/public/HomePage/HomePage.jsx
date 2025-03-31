@@ -4,6 +4,7 @@ import Footer from "../../../components/Footer/Footer";
 import Carousel from "./components/Carousel/Carousel";
 import "./HomePage.css";
 import background2 from "../../../assets/images/background-2.gif";
+import { Link } from "react-router-dom";
 
 function HomePage(){
   const getCurrentSeason = () => {
@@ -36,6 +37,16 @@ function HomePage(){
           </section>
           <section className="carousel-recipes">
             <Carousel season={season} setSeason={setSeason}/>
+          </section>
+          <section className="call-to-action">
+            <div className="text-ctc">
+              <h3><b>Vous voulez plus de recettes ?</b></h3>
+              <p>Découvrez notre page d'exploration de recettes pour trouver de nouvelles idées de plats à préparer.</p>
+              <Link to="/explore">
+                <button className="explore-button">Explorer</button>
+              </Link>
+            </div>
+            <div className="image-ctc"></div>
           </section>
         </main>
       <Footer />

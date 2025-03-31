@@ -54,3 +54,52 @@ section.hero-section::before {
 .carousel-recipes {
   height: calc(100vh - 100px);
 }
+
+section.call-to-action {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+  padding: 2rem;
+}
+
+button.explore-button {
+  background-color: var(--main-color);
+  color: var(--light-color);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button.explore-button:hover {
+  background-color: var(--secondary-color);
+}
+
+section.call-to-action h3 {
+  font-size: 2rem;
+  color: var(--main-color);
+  margin-bottom: 1rem;
+}
+section.call-to-action p {
+  font-size: 1.2rem;
+  color: var(--main-color);
+  margin-bottom: 2rem;
+}
+
+section.call-to-action .text-ctc{
+  text-align: left;
+}
+
+.image-ctc {
+  width: 100%;
+  height: 50%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  background-image: url("http://localhost:5000/images/recipe/default.jpg");
+  background-size: cover;
+  display: block; /* Ensure it behaves as a block element */
+}
+

@@ -11,7 +11,7 @@ main.explore-recipe h2 {
     margin-bottom: 1.5rem;
 }
 
-.recipe-card-container {
+main.explore-recipe .recipe-card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
@@ -19,7 +19,7 @@ main.explore-recipe h2 {
     padding: 2rem 0;
 }
 
-div.recipe-card {
+main.explore-recipe div.recipe-card {
     background-color: var(--secondary-light-color);
     border-radius: 10px;
     overflow: hidden;
@@ -30,30 +30,30 @@ div.recipe-card {
     justify-self: center;
 }
 
-.recipe-card:hover {
+main.explore-recipe .recipe-card:hover {
     transform: scale(1.05);
 }
 
-.recipe-card img {
+main.explore-recipe .recipe-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
 }
 
-.recipe-card h3 {
+main.explore-recipe .recipe-card h3 {
     color: var(--second-main-color);
     font-size: 1.4rem;
     margin: 1rem 0;
 }
 
-.recipe-card p {
+main.explore-recipe .recipe-card p {
     color: var(--main-color);
     padding: 0 1rem;
     font-size: 1rem;
     min-height: 50px;
 }
 
-.recipe-card button {
+main.explore-recipe .recipe-card button {
     background-color: var(--secondary-color);
     color: var(--secondary-light-color);
     border: none;
@@ -65,16 +65,16 @@ div.recipe-card {
     transition: background-color 0.3s;
 }
 
-.recipe-card button:hover {
+main.explore-recipe .recipe-card button:hover {
     background-color: var(--second-secondary-color);
 }
 
 /* Pagination */
-.pagination {
+main.explore-recipe .pagination {
     margin-top: 2rem;
 }
 
-.pagination button {
+main.explore-recipe .pagination button {
     background-color: var(--main-color);
     color: var(--secondary-light-color);
     border: none;
@@ -86,19 +86,19 @@ div.recipe-card {
     transition: background-color 0.3s;
 }
 
-.pagination button:disabled {
+main.explore-recipe .pagination button:disabled {
     background-color: var(--second-main-color);
     cursor: not-allowed;
 }
 
-.pagination button:hover:not(:disabled) {
+main.explore-recipe .pagination button:hover:not(:disabled) {
     background-color: var(--second-main-color);
 }
 
-.pagination button:last-child {
+main.explore-recipe .pagination button:last-child {
     background-color: var(--secondary-color);
 }
 
-.pagination button:last-child:hover {
+main.explore-recipe .pagination button:last-child:hover {
     background-color: var(--second-secondary-color);
 }

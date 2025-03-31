@@ -50,7 +50,12 @@ const searchRecipes = async (req,res,next) => {
   try {
     const search = escapeRegex(req.params.search);
     const recipes = await Recipe.find({
-      $text: { $search: search }
+      $or: [
+      { title: { $regex: search, $options: "i" } },
+      { description: { $regex: search, $options: "i" } },
+      { tags: { $regex: search, $options: "i" } },
+      { season: { $regex: search, $options: "i" } }
+      ]
     });
     res.status(200).send({ recipes });
   } catch (error) {
